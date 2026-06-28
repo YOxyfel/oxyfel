@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ */
+/* Global base                                                         */
+/* ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  background-color: #050505;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #050505;
+  /* Prevent any accidental horizontal scroll from oversized display type. */
+  overflow-x: hidden;
+  /* Avoid white rubber-band flashes on iOS when over-scrolling. */
+  overscroll-behavior-y: none;
+}
+
+/* Hide scrollbars across engines while keeping scroll functionality. */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Custom utilities used by the editorial layout                       */
+/* ------------------------------------------------------------------ */
+
+/* Vertical (right-to-left) running text for desktop portfolio labels. */
+@utility writing-vertical-rl {
+  writing-mode: vertical-rl;
+}
