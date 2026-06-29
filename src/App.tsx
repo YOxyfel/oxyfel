@@ -216,7 +216,7 @@ export default function OxyfelApp() {
           <>
             {/* BASE LAYER (The Dark/Hidden Layer) */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-0 w-full overflow-hidden">
-              <h1 className="text-[15vw] md:text-[12vw] lg:text-[10vw] font-display font-bold leading-[0.8] tracking-tighter text-[#f5f5f5] whitespace-nowrap">
+              <h1 className="text-[8vw] font-display font-bold leading-[0.8] tracking-tighter text-[#f5f5f5] whitespace-nowrap">
                 PERFECTION
               </h1>
               <p className="mt-8 text-lg md:text-2xl lg:text-3xl font-serif italic text-white/70 max-w-2xl px-4">
