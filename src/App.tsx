@@ -263,7 +263,7 @@ export default function OxyfelApp() {
             <p className="mb-5 text-[11px] font-display tracking-[0.4em] uppercase text-white/50 font-bold">
               The Philosophy of
             </p>
-            <h1 className="text-[clamp(2.5rem,13vw,6rem)] font-display font-bold leading-[0.82] tracking-tighter text-[#f5f5f5]">
+            <h1 className="max-w-full text-[clamp(2rem,11vw,5rem)] font-display font-bold leading-[0.82] tracking-tighter text-[#f5f5f5]">
               OXYFEL
             </h1>
             <p className="mt-8 text-lg sm:text-xl font-serif italic text-white/70 max-w-md">
