@@ -6,34 +6,42 @@ interface Project {
   title: string
   category: string
   image: string
+  /** External destination. When present, the card becomes a link; otherwise it is "Coming soon". */
+  href?: string
+  /** Call-to-action label shown on an active live card. */
+  cta?: string
 }
 
 const PROJECTS: Project[] = [
   {
     id: '01',
-    title: 'Aura',
-    category: 'Software Architecture',
+    title: 'Yanez',
+    category: 'Personal Portfolio',
+    href: 'https://v0-yanez.vercel.app/en',
+    cta: 'Visit site',
     image:
       'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: '02',
-    title: 'Nexus',
-    category: 'Decentralized Systems',
+    title: 'Wan Lin',
+    category: 'Games',
+    href: 'https://yoxyfel.github.io/wan-lin-immortal/',
+    cta: 'Play now',
     image:
       'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: '03',
-    title: 'Vanguard',
-    category: 'Artificial Intelligence',
+    title: 'Studio',
+    category: 'Creative Works',
     image:
       'https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: '04',
-    title: 'Prism',
-    category: 'Physical Infrastructure',
+    title: 'Labs',
+    category: 'Experimental',
     image:
       'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop',
   },
@@ -115,8 +123,6 @@ export default function OxyfelApp() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;800&display=swap');
-
         .font-display { font-family: 'Syne', sans-serif; }
         .font-serif { font-family: 'Cormorant Garamond', serif; }
 
@@ -216,9 +222,12 @@ export default function OxyfelApp() {
           <>
             {/* BASE LAYER (The Dark/Hidden Layer) */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-0 w-full overflow-hidden">
-              <h1 className="text-[8vw] font-display font-bold leading-[0.8] tracking-tighter text-[#f5f5f5] whitespace-nowrap">
+              <div
+                aria-hidden="true"
+                className="text-[8vw] font-display font-bold leading-[0.8] tracking-tighter text-[#f5f5f5] whitespace-nowrap"
+              >
                 PERFECTION
-              </h1>
+              </div>
               <p className="absolute bottom-[19%] left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 text-center text-lg md:text-2xl lg:text-3xl font-serif italic text-white/70">
                 "...until perfection is but the result."
               </p>
@@ -254,7 +263,7 @@ export default function OxyfelApp() {
             <p className="mb-5 text-[11px] font-display tracking-[0.4em] uppercase text-white/50 font-bold">
               The Philosophy of
             </p>
-            <h1 className="text-[clamp(3rem,18vw,7rem)] font-display font-bold leading-[0.82] tracking-tighter text-[#f5f5f5]">
+            <h1 className="text-[clamp(2.5rem,13vw,6rem)] font-display font-bold leading-[0.82] tracking-tighter text-[#f5f5f5]">
               OXYFEL
             </h1>
             <p className="mt-8 text-lg sm:text-xl font-serif italic text-white/70 max-w-md">
@@ -311,33 +320,28 @@ export default function OxyfelApp() {
       <section className="flex flex-col md:flex-row md:h-screen bg-[#f5f5f5] text-[#050505] relative z-20 border-t border-black/10 overflow-hidden">
         {PROJECTS.map((project, index) => {
           const isActive = hoveredProject === index
+          const isLive = Boolean(project.href)
 
-          return (
-            <button
-              type="button"
-              key={project.id}
-              aria-expanded={isActive}
-              className={`
-                group relative flex flex-col justify-between text-left border-b md:border-b-0 md:border-r border-black/15 overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[34vh] md:min-h-0
-                ${isDesktop ? 'cursor-none' : 'cursor-pointer'}
-                ${isActive ? 'flex-[3] md:flex-[4] bg-black text-white' : 'flex-1 md:flex-[1] hover:bg-black/5'}
-              `}
-              onMouseEnter={() => {
-                if (!isDesktop) return
-                setHoveredProject(index)
-                setHovering(true)
-              }}
-              onMouseLeave={() => {
-                if (!isDesktop) return
-                setHoveredProject(null)
-                setHovering(false)
-              }}
-              onClick={() => {
-                if (isDesktop) return
-                setHoveredProject((prev) => (prev === index ? null : index))
-              }}
-            >
-              {/* Background Image (Reveals on activation) */}
+          const cardClassName = `
+            group relative flex flex-col justify-between text-left no-underline border-b md:border-b-0 md:border-r border-black/15 overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[34vh] md:min-h-0
+            ${isDesktop ? 'cursor-none' : 'cursor-pointer'}
+            ${isActive ? 'flex-[3] md:flex-[4] bg-black text-white' : 'flex-1 md:flex-[1] hover:bg-black/5'}
+          `
+
+          const enter = () => {
+            if (!isDesktop) return
+            setHoveredProject(index)
+            setHovering(true)
+          }
+          const leave = () => {
+            if (!isDesktop) return
+            setHoveredProject(null)
+            setHovering(false)
+          }
+
+          const inner = (
+            <>
+              {/* Background image (reveals on activation) */}
               <div
                 className={`absolute inset-0 z-0 transition-opacity duration-700 ease-in-out ${
                   isActive ? 'opacity-30' : 'opacity-0'
@@ -345,23 +349,45 @@ export default function OxyfelApp() {
               >
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt=""
+                  aria-hidden="true"
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover grayscale mix-blend-luminosity"
                 />
               </div>
 
-              {/* Top Header info */}
+              {/* Top header info */}
               <div className="p-4 md:p-8 z-10 flex flex-row md:flex-col justify-between md:h-full gap-4 items-center md:items-start">
-                <span
-                  className={`font-display text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-colors duration-500 ${
-                    isActive ? 'text-white' : 'text-black/40'
-                  }`}
-                >
-                  {project.id}
-                </span>
+                <div className="flex items-center gap-3 md:flex-col md:items-start">
+                  <span
+                    className={`font-display text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-colors duration-500 ${
+                      isActive ? 'text-white' : 'text-black/40'
+                    }`}
+                  >
+                    {project.id}
+                  </span>
+                  {isLive ? (
+                    <span
+                      aria-hidden="true"
+                      className={`text-sm leading-none transition-colors duration-500 ${
+                        isActive ? 'text-white' : 'text-black/40'
+                      }`}
+                    >
+                      ↗
+                    </span>
+                  ) : (
+                    <span
+                      className={`font-display text-[8px] md:text-[9px] uppercase tracking-[0.25em] px-2 py-1 border transition-colors duration-500 ${
+                        isActive ? 'border-white/40 text-white/80' : 'border-black/20 text-black/40'
+                      }`}
+                    >
+                      Soon
+                    </span>
+                  )}
+                </div>
 
-                {/* Vertical Category Text (Desktop) */}
+                {/* Vertical category text (desktop) */}
                 <span
                   className={`hidden md:block font-display text-[10px] uppercase tracking-[0.4em] transform -rotate-180 writing-vertical-rl whitespace-nowrap transition-colors duration-500 ${
                     isActive ? 'text-white/70' : 'text-black/40'
@@ -370,7 +396,7 @@ export default function OxyfelApp() {
                   {project.category}
                 </span>
 
-                {/* Horizontal Category Text (Mobile) */}
+                {/* Horizontal category text (mobile) */}
                 <span
                   className={`md:hidden font-display text-[10px] uppercase tracking-[0.3em] transition-colors duration-500 text-right ${
                     isActive ? 'text-white/70' : 'text-black/40'
@@ -380,7 +406,7 @@ export default function OxyfelApp() {
                 </span>
               </div>
 
-              {/* Title (Bottom) */}
+              {/* Title (bottom) */}
               <div className="p-4 md:p-8 z-10 mt-auto relative w-full">
                 <h3
                   className={`
@@ -401,11 +427,54 @@ export default function OxyfelApp() {
                     isActive ? 'max-h-40 opacity-100 mt-4 md:mt-6' : 'max-h-0 opacity-0 mt-0'
                   }`}
                 >
-                  <p className="font-serif italic text-lg md:text-2xl lg:text-3xl text-white/80 border-t border-white/20 pt-4">
-                    Explore this entity.
-                  </p>
+                  {isLive ? (
+                    <span className="inline-flex items-center gap-2 font-serif italic text-lg md:text-2xl lg:text-3xl text-white/90 border-t border-white/20 pt-4">
+                      {project.cta}
+                      <span aria-hidden="true">↗</span>
+                    </span>
+                  ) : (
+                    <p className="font-display uppercase tracking-[0.3em] text-xs md:text-sm text-white/60 border-t border-white/20 pt-4">
+                      Coming soon
+                    </p>
+                  )}
                 </div>
               </div>
+            </>
+          )
+
+          if (isLive) {
+            return (
+              <a
+                key={project.id}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.title} — ${project.category}, opens in a new tab`}
+                className={cardClassName}
+                onMouseEnter={enter}
+                onMouseLeave={leave}
+                onFocus={() => isDesktop && setHoveredProject(index)}
+                onBlur={() => isDesktop && setHoveredProject(null)}
+              >
+                {inner}
+              </a>
+            )
+          }
+
+          return (
+            <button
+              type="button"
+              key={project.id}
+              aria-expanded={isActive}
+              className={cardClassName}
+              onMouseEnter={enter}
+              onMouseLeave={leave}
+              onClick={() => {
+                if (isDesktop) return
+                setHoveredProject((prev) => (prev === index ? null : index))
+              }}
+            >
+              {inner}
             </button>
           )
         })}
