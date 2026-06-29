@@ -219,7 +219,7 @@ export default function OxyfelApp() {
               <h1 className="text-[8vw] font-display font-bold leading-[0.8] tracking-tighter text-[#f5f5f5] whitespace-nowrap">
                 PERFECTION
               </h1>
-              <p className="mt-8 text-lg md:text-2xl lg:text-3xl font-serif italic text-white/70 max-w-2xl px-4">
+              <p className="absolute bottom-[19%] left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 text-center text-lg md:text-2xl lg:text-3xl font-serif italic text-white/70">
                 "...until perfection is but the result."
               </p>
             </div>
@@ -238,8 +238,8 @@ export default function OxyfelApp() {
               <h1 className="text-[18vw] md:text-[14vw] lg:text-[11vw] font-display font-bold leading-[0.8] tracking-tighter text-[#050505] whitespace-nowrap">
                 OXYFEL
               </h1>
-              <p className="mt-8 text-lg md:text-2xl lg:text-3xl font-serif italic text-[#050505]/70 max-w-2xl px-4">
-                "From nothing we keep layering..."
+              <p className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 text-center text-lg md:text-2xl lg:text-3xl font-serif italic text-[#050505]/70">
+                "From nothing we layer..."
               </p>
             </div>
 
@@ -258,7 +258,7 @@ export default function OxyfelApp() {
               OXYFEL
             </h1>
             <p className="mt-8 text-lg sm:text-xl font-serif italic text-white/70 max-w-md">
-              "From nothing we keep layering, until perfection is but the result."
+              "From nothing we layer, until perfection is but the result."
             </p>
           </div>
         )}
