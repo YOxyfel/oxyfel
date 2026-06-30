@@ -1,49 +1,49 @@
 import { useEffect, useRef, useState } from 'react'
 
 // --- DATA FOR THE ECOSYSTEM ---
-interface Project {
-  id: string
-  title: string
-  category: string
-  image: string
-  /** External destination. When present, the card becomes a link; otherwise it is "Coming soon". */
-  href?: string
-  /** Call-to-action label shown on an active live card. */
-  cta?: string
+interface Member {
+  name: string
+  role: string
+  href: string
 }
 
-const PROJECTS: Project[] = [
+interface ProductCategory {
+  name: string
+  items: { name: string; href: string }[]
+}
+
+type Division = {
+  id: string
+  title: string
+  label: string
+  image: string
+} & ({ kind: 'team'; members: Member[] } | { kind: 'products'; categories: ProductCategory[] })
+
+const DIVISIONS: Division[] = [
   {
     id: '01',
-    title: 'Yanez',
-    category: 'Personal Portfolio',
-    href: 'https://v0-yanez.vercel.app/en',
-    cta: 'Visit site',
+    kind: 'team',
+    title: 'Team',
+    label: 'The People',
     image:
       'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+    members: [{ name: 'Yanez', role: 'Founder', href: 'https://v0-yanez.vercel.app/en' }],
   },
   {
     id: '02',
-    title: 'Wan Lin',
-    category: 'Games',
-    href: 'https://yoxyfel.github.io/wan-lin-immortal/',
-    cta: 'Play now',
+    kind: 'products',
+    title: 'Products',
+    label: 'What We Build',
     image:
       'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: '03',
-    title: 'Studio',
-    category: 'Creative Works',
-    image:
-      'https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: '04',
-    title: 'Labs',
-    category: 'Experimental',
-    image:
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop',
+    categories: [
+      {
+        name: 'Games',
+        items: [
+          { name: 'Wan Lin Immortal', href: 'https://yoxyfel.github.io/wan-lin-immortal/' },
+        ],
+      },
+    ],
   },
 ]
 
@@ -316,39 +316,64 @@ export default function OxyfelApp() {
         </div>
       </section>
 
-      {/* --- THE PORTFOLIO: INTERACTIVE ACCORDION GRID --- */}
+      {/* --- THE DIVISIONS: INTERACTIVE DISCLOSURE GRID --- */}
       <section className="flex flex-col md:flex-row md:h-screen bg-[#f5f5f5] text-[#050505] relative z-20 border-t border-black/10 overflow-hidden">
-        {PROJECTS.map((project, index) => {
+        {DIVISIONS.map((division, index) => {
           const isActive = hoveredProject === index
-          const isLive = Boolean(project.href)
+          const linkTabIndex = isActive ? 0 : -1
 
-          const cardClassName = `
-            group relative flex flex-col justify-between text-left no-underline border-b md:border-b-0 md:border-r border-black/15 overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[34vh] md:min-h-0
-            ${isDesktop ? 'cursor-none' : 'cursor-pointer'}
-            ${isActive ? 'flex-[3] md:flex-[4] bg-black text-white' : 'flex-1 md:flex-[1] hover:bg-black/5'}
-          `
+          const detailLinkClass =
+            'group/item flex items-baseline justify-between gap-6 hover:text-white/60 transition-colors duration-300'
 
-          const enter = () => {
-            if (!isDesktop) return
-            setHoveredProject(index)
-            setHovering(true)
-          }
-          const leave = () => {
-            if (!isDesktop) return
-            setHoveredProject(null)
-            setHovering(false)
-          }
-
-          const inner = (
-            <>
+          return (
+            <div
+              key={division.id}
+              role="button"
+              tabIndex={0}
+              aria-expanded={isActive}
+              aria-label={`${division.title} — ${division.label}`}
+              className={`
+                group relative flex flex-col justify-between text-left border-b md:border-b-0 md:border-r border-black/15 overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[40vh] md:min-h-0 outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-black/40
+                ${isDesktop ? 'cursor-none' : 'cursor-pointer'}
+                ${isActive ? 'flex-[3] md:flex-[4] bg-black text-white' : 'flex-1 md:flex-[1] hover:bg-black/5'}
+              `}
+              onMouseEnter={() => {
+                if (!isDesktop) return
+                setHoveredProject(index)
+                setHovering(true)
+              }}
+              onMouseLeave={() => {
+                if (!isDesktop) return
+                setHoveredProject(null)
+                setHovering(false)
+              }}
+              onFocus={() => {
+                if (isDesktop) setHoveredProject(index)
+              }}
+              onBlur={(e) => {
+                if (isDesktop && !e.currentTarget.contains(e.relatedTarget as Node)) {
+                  setHoveredProject(null)
+                }
+              }}
+              onClick={() => {
+                if (isDesktop) return
+                setHoveredProject((prev) => (prev === index ? null : index))
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  setHoveredProject((prev) => (prev === index ? null : index))
+                }
+              }}
+            >
               {/* Background image (reveals on activation) */}
               <div
                 className={`absolute inset-0 z-0 transition-opacity duration-700 ease-in-out ${
-                  isActive ? 'opacity-30' : 'opacity-0'
+                  isActive ? 'opacity-25' : 'opacity-0'
                 }`}
               >
                 <img
-                  src={project.image}
+                  src={division.image}
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -359,123 +384,129 @@ export default function OxyfelApp() {
 
               {/* Top header info */}
               <div className="p-4 md:p-8 z-10 flex flex-row md:flex-col justify-between md:h-full gap-4 items-center md:items-start">
-                <div className="flex items-center gap-3 md:flex-col md:items-start">
+                <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-4">
                   <span
                     className={`font-display text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-colors duration-500 ${
                       isActive ? 'text-white' : 'text-black/40'
                     }`}
                   >
-                    {project.id}
+                    {division.id}
                   </span>
-                  {isLive ? (
-                    <span
-                      aria-hidden="true"
-                      className={`text-sm leading-none transition-colors duration-500 ${
-                        isActive ? 'text-white' : 'text-black/40'
-                      }`}
-                    >
-                      ↗
-                    </span>
-                  ) : (
-                    <span
-                      className={`font-display text-[8px] md:text-[9px] uppercase tracking-[0.25em] px-2 py-1 border transition-colors duration-500 ${
-                        isActive ? 'border-white/40 text-white/80' : 'border-black/20 text-black/40'
-                      }`}
-                    >
-                      Soon
-                    </span>
-                  )}
+                  <span
+                    aria-hidden="true"
+                    className={`font-display text-lg leading-none transition-all duration-500 ${
+                      isActive ? 'rotate-45 text-white' : 'text-black/40'
+                    }`}
+                  >
+                    +
+                  </span>
                 </div>
 
-                {/* Vertical category text (desktop) */}
+                {/* Vertical label (desktop) */}
                 <span
                   className={`hidden md:block font-display text-[10px] uppercase tracking-[0.4em] transform -rotate-180 writing-vertical-rl whitespace-nowrap transition-colors duration-500 ${
                     isActive ? 'text-white/70' : 'text-black/40'
                   }`}
                 >
-                  {project.category}
+                  {division.label}
                 </span>
 
-                {/* Horizontal category text (mobile) */}
+                {/* Horizontal label (mobile) */}
                 <span
                   className={`md:hidden font-display text-[10px] uppercase tracking-[0.3em] transition-colors duration-500 text-right ${
                     isActive ? 'text-white/70' : 'text-black/40'
                   }`}
                 >
-                  {project.category}
+                  {division.label}
                 </span>
               </div>
 
-              {/* Title (bottom) */}
-              <div className="p-4 md:p-8 z-10 mt-auto relative w-full">
+              {/* Title + expandable details (bottom) */}
+              <div
+                className={`p-4 md:p-8 z-10 mt-auto relative w-full transition-all duration-700 ${
+                  isActive ? 'pb-24 md:pb-28' : ''
+                }`}
+              >
                 <h3
                   className={`
                   font-display font-bold uppercase tracking-tighter transition-all duration-[800ms] leading-[0.9]
                   ${
                     isActive
-                      ? 'text-4xl sm:text-5xl md:text-6xl lg:text-[6vw]'
+                      ? 'text-4xl sm:text-5xl md:text-6xl lg:text-[5vw]'
                       : 'text-2xl md:text-3xl md:transform md:-rotate-90 md:origin-bottom-left md:translate-y-4 md:translate-x-2 md:w-max'
                   }
                 `}
                 >
-                  {project.title}
+                  {division.title}
                 </h3>
 
-                {/* Expandable description block */}
                 <div
                   className={`overflow-hidden transition-all duration-700 w-full ${
-                    isActive ? 'max-h-40 opacity-100 mt-4 md:mt-6' : 'max-h-0 opacity-0 mt-0'
+                    isActive
+                      ? 'max-h-[26rem] opacity-100 mt-5 md:mt-7'
+                      : 'max-h-0 opacity-0 mt-0 pointer-events-none'
                   }`}
                 >
-                  {isLive ? (
-                    <span className="inline-flex items-center gap-2 font-serif italic text-lg md:text-2xl lg:text-3xl text-white/90 border-t border-white/20 pt-4">
-                      {project.cta}
-                      <span aria-hidden="true">↗</span>
-                    </span>
-                  ) : (
-                    <p className="font-display uppercase tracking-[0.3em] text-xs md:text-sm text-white/60 border-t border-white/20 pt-4">
-                      Coming soon
-                    </p>
-                  )}
+                  <div className="border-t border-white/20 pt-5 max-w-xl">
+                    {division.kind === 'team' ? (
+                      <ul className="space-y-3">
+                        {division.members.map((m) => (
+                          <li key={m.name}>
+                            <a
+                              href={m.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              tabIndex={linkTabIndex}
+                              className={`${detailLinkClass} border-b border-white/15 pb-3`}
+                            >
+                              <span className="font-serif italic text-2xl md:text-3xl lg:text-4xl">
+                                {m.name}
+                              </span>
+                              <span className="font-display text-[10px] uppercase tracking-[0.25em] text-white/50 whitespace-nowrap">
+                                {m.role} <span aria-hidden="true">↗</span>
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="space-y-5">
+                        {division.categories.map((c) => (
+                          <div key={c.name}>
+                            <p className="font-display text-[10px] uppercase tracking-[0.4em] text-white/50 mb-2">
+                              {c.name}
+                            </p>
+                            <ul className="space-y-2">
+                              {c.items.map((it) => (
+                                <li key={it.name}>
+                                  <a
+                                    href={it.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    tabIndex={linkTabIndex}
+                                    className={detailLinkClass}
+                                  >
+                                    <span className="font-serif italic text-2xl md:text-3xl lg:text-4xl">
+                                      {it.name}
+                                    </span>
+                                    <span aria-hidden="true" className="text-sm">
+                                      ↗
+                                    </span>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-white/30 pt-1">
+                          More categories coming soon
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </>
-          )
-
-          if (isLive) {
-            return (
-              <a
-                key={project.id}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${project.title} — ${project.category}, opens in a new tab`}
-                className={cardClassName}
-                onMouseEnter={enter}
-                onMouseLeave={leave}
-                onFocus={() => isDesktop && setHoveredProject(index)}
-                onBlur={() => isDesktop && setHoveredProject(null)}
-              >
-                {inner}
-              </a>
-            )
-          }
-
-          return (
-            <button
-              type="button"
-              key={project.id}
-              aria-expanded={isActive}
-              className={cardClassName}
-              onMouseEnter={enter}
-              onMouseLeave={leave}
-              onClick={() => {
-                if (isDesktop) return
-                setHoveredProject((prev) => (prev === index ? null : index))
-              }}
-            >
-              {inner}
-            </button>
+            </div>
           )
         })}
       </section>
