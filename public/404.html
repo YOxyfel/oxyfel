@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="robots" content="noindex" />
+    <title>404 — Oxyfel</title>
+    <link rel="icon" type="image/svg+xml" href="/oxyfel/favicon.svg" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        background: #050505;
+        color: #f5f5f5;
+      }
+      body {
+        font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1.5rem;
+      }
+      .kicker {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 2rem;
+      }
+      h1 {
+        font-size: clamp(4rem, 18vw, 12rem);
+        font-weight: 800;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+      }
+      .quote {
+        font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: clamp(1.125rem, 3vw, 1.75rem);
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 2rem;
+        max-width: 28rem;
+      }
+      a.home {
+        display: inline-block;
+        margin-top: 3.5rem;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #f5f5f5;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.75rem 0.25rem;
+        transition: opacity 0.3s ease;
+      }
+      a.home:hover {
+        opacity: 0.5;
+      }
+      .foot {
+        position: fixed;
+        bottom: max(1.25rem, env(safe-area-inset-bottom));
+        left: 0;
+        right: 0;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <p class="kicker">Signal Lost</p>
+    <h1>404</h1>
+    <p class="quote">"From nothing we layer..." — but this page was never part of the sequence.</p>
+    <a class="home" href="/oxyfel/">Return to the Index &darr;</a>
+    <p class="foot">Oxyfel &mdash; Perfection is standard</p>
+  </body>
+</html>

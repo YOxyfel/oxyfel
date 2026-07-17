@@ -1,3 +1,11 @@
+/* ------------------------------------------------------------------ */
+/* Self-hosted fonts (Fontsource variable, font-display: swap)         */
+/* Replaces the Google Fonts stylesheet formerly linked in index.html. */
+/* ------------------------------------------------------------------ */
+@import '@fontsource-variable/syne'; /* 'Syne Variable' — wght 400–800 */
+@import '@fontsource-variable/cormorant-garamond'; /* 'Cormorant Garamond Variable' — wght 300–700 */
+@import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+
 @import 'tailwindcss';
 
 /* ------------------------------------------------------------------ */

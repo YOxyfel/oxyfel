@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 // --- DATA FOR THE ECOSYSTEM ---
 interface Member {
@@ -7,9 +7,15 @@ interface Member {
   href: string
 }
 
+interface ProductItem {
+  name: string
+  href?: string
+  action: string
+}
+
 interface ProductCategory {
   name: string
-  items: { name: string; href: string }[]
+  items: ProductItem[]
 }
 
 type Division = {
@@ -17,7 +23,12 @@ type Division = {
   title: string
   label: string
   image: string
+  cta?: { label: string; href: string; external?: boolean }
 } & ({ kind: 'team'; members: Member[] } | { kind: 'products'; categories: ProductCategory[] })
+
+// TODO switch the mailto to hello@yanezhekov.dev (or an oxyfel address) once the
+// domain family + Cloudflare Email Routing exist.
+const CONTACT_EMAIL = 'zhekov.yane123@gmail.com'
 
 const DIVISIONS: Division[] = [
   {
@@ -26,8 +37,9 @@ const DIVISIONS: Division[] = [
     title: 'Team',
     label: 'The People',
     image:
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=60&w=800&auto=format&fit=crop',
     members: [{ name: 'Yanez', role: 'Founder', href: 'https://v0-yanez.vercel.app/en' }],
+    cta: { label: 'Hire us for UE5 gameplay systems', href: `mailto:${CONTACT_EMAIL}` },
   },
   {
     id: '02',
@@ -35,15 +47,31 @@ const DIVISIONS: Division[] = [
     title: 'Products',
     label: 'What We Build',
     image:
-      'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=60&w=800&auto=format&fit=crop',
     categories: [
       {
         name: 'Games',
         items: [
-          { name: 'Wan Lin Immortal', href: 'https://yoxyfel.github.io/wan-lin-immortal/' },
+          {
+            name: 'Wuhen & Xuan: Heaven Defying',
+            href: 'https://yoxyfel.github.io/wan-lin-immortal/',
+            action: 'Explore',
+          },
+          {
+            name: 'Constellore',
+            href: 'https://yoxyfel.github.io/constellore/#wishlist',
+            action: 'Wishlist',
+          },
+          { name: 'Mosquitto', action: 'Coming soon' },
+          { name: 'Run & Bank', action: 'Coming soon' },
         ],
       },
     ],
+    cta: {
+      label: 'Explore Wuhen & Xuan',
+      href: 'https://yoxyfel.github.io/wan-lin-immortal/',
+      external: true,
+    },
   },
 ]
 
@@ -54,13 +82,16 @@ const DESKTOP_QUERY = '(min-width: 768px) and (hover: hover) and (pointer: fine)
 export default function OxyfelApp() {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 })
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
-  const [isDesktop, setIsDesktop] = useState<boolean>(() =>
-    typeof window !== 'undefined' ? window.matchMedia(DESKTOP_QUERY).matches : false,
-  )
+  // Starts `false` on the server AND on the first client render so the
+  // prerendered HTML (see scripts/prerender.mjs) hydrates without mismatch;
+  // the layout effect below flips it before first paint on desktop devices.
+  const [isDesktop, setIsDesktop] = useState<boolean>(false)
   const heroRef = useRef<HTMLElement | null>(null)
 
   // --- TRACK WHETHER THIS IS A POINTER-DRIVEN DESKTOP DEVICE ---
-  useEffect(() => {
+  // useLayoutEffect (not useEffect) so the desktop hero swaps in before the
+  // browser paints — no flash of the mobile variant on pointer devices.
+  useLayoutEffect(() => {
     const mql = window.matchMedia(DESKTOP_QUERY)
     const update = () => setIsDesktop(mql.matches)
     update()
@@ -123,8 +154,33 @@ export default function OxyfelApp() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        .font-display { font-family: 'Syne', sans-serif; }
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .font-display { font-family: 'Syne Variable', 'Syne', sans-serif; }
+        .font-serif { font-family: 'Cormorant Garamond Variable', 'Cormorant Garamond', serif; }
+
+        /* Safe-area aware padding for the fixed corner navigation
+           (viewport-fit=cover is declared in index.html). */
+        .corner-nav {
+          padding-top: max(1.25rem, env(safe-area-inset-top));
+          padding-right: max(1.25rem, env(safe-area-inset-right));
+          padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+          padding-left: max(1.25rem, env(safe-area-inset-left));
+        }
+        @media (min-width: 640px) {
+          .corner-nav {
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
+            padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+          }
+        }
+        @media (min-width: 768px) {
+          .corner-nav {
+            padding-top: max(3rem, env(safe-area-inset-top));
+            padding-right: max(3rem, env(safe-area-inset-right));
+            padding-bottom: max(3rem, env(safe-area-inset-bottom));
+            padding-left: max(3rem, env(safe-area-inset-left));
+          }
+        }
 
         /* Precision Crosshair Cursor */
         .crosshair {
@@ -175,11 +231,11 @@ export default function OxyfelApp() {
       )}
 
       {/* --- FOUR-CORNER NAVIGATION (EDITORIAL STRUCTURE) --- */}
-      <div className="fixed inset-0 pointer-events-none z-50 p-5 sm:p-6 md:p-12 flex flex-col justify-between mix-blend-difference text-white">
+      <div className="fixed inset-0 pointer-events-none z-50 corner-nav flex flex-col justify-between mix-blend-difference text-white">
         <div className="flex justify-between items-start font-display text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase">
           <a
             href="#top"
-            className={`pointer-events-auto hover:opacity-50 transition-opacity ${isDesktop ? 'cursor-none' : ''}`}
+            className={`pointer-events-auto p-3 -m-3 hover:opacity-50 transition-opacity ${isDesktop ? 'cursor-none' : ''}`}
           >
             OXYFEL / INDEX
           </a>
@@ -188,27 +244,23 @@ export default function OxyfelApp() {
           </div>
         </div>
         <div className="flex justify-between items-end font-display text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase">
-          <div className="flex flex-col gap-1 pointer-events-auto">
+          {/* TODO add X/LinkedIn when real profiles exist */}
+          <div className="flex flex-col gap-3 pointer-events-auto">
             <a
-              href="https://twitter.com"
+              href="https://github.com/YOxyfel"
               target="_blank"
-              rel="noreferrer"
-              className={`hover:opacity-50 transition-opacity ${isDesktop ? 'cursor-none' : ''}`}
+              rel="noopener noreferrer"
+              className={`py-2 px-3 -mx-3 hover:opacity-50 transition-opacity ${isDesktop ? 'cursor-none' : ''}`}
             >
-              Twitter
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noreferrer"
-              className={`hover:opacity-50 transition-opacity ${isDesktop ? 'cursor-none' : ''}`}
-            >
-              LinkedIn
+              GitHub
             </a>
           </div>
-          <div className="pointer-events-auto text-right">
-            SCROLL <br /> ↓
-          </div>
+          <a
+            href="#contact"
+            className={`pointer-events-auto text-right p-3 -m-3 hover:opacity-50 transition-opacity ${isDesktop ? 'cursor-none' : ''}`}
+          >
+            CONTACT <br /> ↓
+          </a>
         </div>
       </div>
 
@@ -228,6 +280,12 @@ export default function OxyfelApp() {
               >
                 PERFECTION
               </div>
+              <p
+                aria-hidden="true"
+                className="mt-6 font-display text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/40"
+              >
+                A studio building original games and UE5 gameplay systems.
+              </p>
               <p className="absolute bottom-[19%] left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 text-center text-lg md:text-2xl lg:text-3xl font-serif italic text-white/70">
                 "...until perfection is but the result."
               </p>
@@ -247,13 +305,16 @@ export default function OxyfelApp() {
               <h1 className="text-[18vw] md:text-[14vw] lg:text-[11vw] font-display font-bold leading-[0.8] tracking-tighter text-[#050505] whitespace-nowrap">
                 OXYFEL
               </h1>
+              <p className="mt-6 font-display text-[10px] md:text-xs uppercase tracking-[0.35em] text-[#050505]/50">
+                A studio building original games and UE5 gameplay systems.
+              </p>
               <p className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 text-center text-lg md:text-2xl lg:text-3xl font-serif italic text-[#050505]/70">
                 "From nothing we layer..."
               </p>
             </div>
 
             {/* Hint to move the cursor — mix-blend keeps it legible over both layers */}
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 font-display text-[10px] uppercase tracking-[0.4em] text-white mix-blend-difference animate-pulse pointer-events-none">
+            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 font-display text-[10px] uppercase tracking-[0.4em] text-white mix-blend-difference motion-safe:animate-pulse pointer-events-none">
               Move to reveal
             </div>
           </>
@@ -266,6 +327,9 @@ export default function OxyfelApp() {
             <h1 className="max-w-full text-[clamp(2rem,11vw,5rem)] font-display font-bold leading-[0.82] tracking-tighter text-[#f5f5f5]">
               OXYFEL
             </h1>
+            <p className="mt-6 font-display text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 max-w-md leading-relaxed">
+              A studio building original games and UE5 gameplay systems.
+            </p>
             <p className="mt-8 text-lg sm:text-xl font-serif italic text-white/70 max-w-md">
               "From nothing we layer, until perfection is but the result."
             </p>
@@ -318,6 +382,7 @@ export default function OxyfelApp() {
 
       {/* --- THE DIVISIONS: INTERACTIVE DISCLOSURE GRID --- */}
       <section className="flex flex-col md:flex-row md:h-screen bg-[#f5f5f5] text-[#050505] relative z-20 border-t border-black/10 overflow-hidden">
+        <h2 className="sr-only">The Divisions</h2>
         {DIVISIONS.map((division, index) => {
           const isActive = hoveredProject === index
           const linkTabIndex = isActive ? 0 : -1
@@ -374,6 +439,8 @@ export default function OxyfelApp() {
               >
                 <img
                   src={division.image}
+                  srcSet={`${division.image.replace('w=800', 'w=480')} 480w, ${division.image} 800w`}
+                  sizes="(min-width: 768px) 80vw, 100vw"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -479,29 +546,52 @@ export default function OxyfelApp() {
                             <ul className="space-y-2">
                               {c.items.map((it) => (
                                 <li key={it.name}>
-                                  <a
-                                    href={it.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    tabIndex={linkTabIndex}
-                                    className={detailLinkClass}
-                                  >
-                                    <span className="font-serif italic text-2xl md:text-3xl lg:text-4xl">
-                                      {it.name}
-                                    </span>
-                                    <span aria-hidden="true" className="text-sm">
-                                      ↗
-                                    </span>
-                                  </a>
+                                  {it.href ? (
+                                    <a
+                                      href={it.href}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      tabIndex={linkTabIndex}
+                                      className={detailLinkClass}
+                                    >
+                                      <span className="font-serif italic text-2xl md:text-3xl lg:text-4xl">
+                                        {it.name}
+                                      </span>
+                                      <span className="shrink-0 font-display text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/50">
+                                        {it.action} <span aria-hidden="true">↗</span>
+                                      </span>
+                                    </a>
+                                  ) : (
+                                    <div
+                                      aria-disabled="true"
+                                      className="flex items-baseline justify-between gap-6 text-white/60"
+                                    >
+                                      <span className="font-serif italic text-2xl md:text-3xl lg:text-4xl">
+                                        {it.name}
+                                      </span>
+                                      <span className="shrink-0 font-display text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/35">
+                                        {it.action}
+                                      </span>
+                                    </div>
+                                  )}
                                 </li>
                               ))}
                             </ul>
                           </div>
                         ))}
-                        <p className="font-display text-[10px] uppercase tracking-[0.3em] text-white/30 pt-1">
-                          More categories coming soon
-                        </p>
                       </div>
+                    )}
+                    {division.cta && (
+                      <a
+                        href={division.cta.href}
+                        tabIndex={linkTabIndex}
+                        {...(division.cta.external
+                          ? { target: '_blank', rel: 'noopener noreferrer' }
+                          : {})}
+                        className="mt-6 inline-block font-display text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300 border-b border-white/30 pb-1"
+                      >
+                        {division.cta.label} <span aria-hidden="true">→</span>
+                      </a>
                     )}
                   </div>
                 </div>
@@ -512,25 +602,36 @@ export default function OxyfelApp() {
       </section>
 
       {/* --- FOOTER: THE FOUNDATION --- */}
-      <footer className="bg-[#050505] text-[#f5f5f5] pt-32 pb-12 px-6 md:px-12 relative z-20 border-t border-white/10 flex flex-col items-center justify-center text-center overflow-hidden">
+      <footer
+        id="contact"
+        className="bg-[#050505] text-[#f5f5f5] pt-32 pb-24 md:pb-12 px-6 md:px-12 relative z-20 border-t border-white/10 flex flex-col items-center justify-center text-center overflow-hidden"
+      >
         <div className="reveal-block w-full max-w-full px-4">
           <p className="font-display text-[10px] md:text-xs uppercase tracking-[0.5em] text-white/40 mb-8">
             Initiate Sequence
           </p>
+          {/* TODO switch to hello@yanezhekov.dev (or an oxyfel address) once the
+              domain family + Cloudflare Email Routing exist. */}
           <a
-            href="mailto:inquiries@oxyfel.com"
+            href={`mailto:${CONTACT_EMAIL}`}
             className={`inline-block text-[8vw] md:text-[6vw] font-serif italic hover:text-white/50 transition-colors duration-500 break-all ${
               isDesktop ? 'cursor-none' : ''
             }`}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
-            inquiries@oxyfel.com
+            {CONTACT_EMAIL}
           </a>
         </div>
 
         <div className="mt-24 md:mt-32 w-full border-t border-white/10 pt-8 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center font-display text-[9px] uppercase tracking-[0.3em] text-white/30 reveal-block delay-100">
           <span>&copy; {new Date().getFullYear()} Oxyfel</span>
+          <a
+            href={`${import.meta.env.BASE_URL}privacy.html`}
+            className={`hover:text-white/60 transition-colors ${isDesktop ? 'cursor-none' : ''}`}
+          >
+            Privacy
+          </a>
           <span>Perfection is standard</span>
         </div>
       </footer>
