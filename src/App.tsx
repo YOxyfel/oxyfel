@@ -67,11 +67,6 @@ const DIVISIONS: Division[] = [
         ],
       },
     ],
-    cta: {
-      label: 'Explore Wuhen & Xuan',
-      href: 'https://yoxyfel.github.io/wan-lin-immortal/',
-      external: true,
-    },
   },
 ]
 
