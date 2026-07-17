@@ -8,13 +8,9 @@
     <title>Oxyfel — Digital Ecosystem | Perfection is Standard</title>
     <meta
       name="description"
-      content="Oxyfel is a unified digital ecosystem — we integrate anything and everything, layering until perfection is but the result. Explore the portfolio: Yanez, Wan Lin, and more."
+      content="Oxyfel is a studio building original games and UE5 gameplay systems — a unified digital ecosystem where perfection is but the result."
     />
     <meta name="author" content="Oxyfel" />
-    <meta
-      name="keywords"
-      content="Oxyfel, digital ecosystem, software, games, portfolio, Yanez, Wan Lin Immortal, web development, design studio"
-    />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://yoxyfel.github.io/oxyfel/" />
 
@@ -22,14 +18,8 @@
     <link rel="apple-touch-icon" href="/oxyfel/favicon.svg" />
     <link rel="manifest" href="/oxyfel/site.webmanifest" />
 
-    <!-- Fonts: preconnect + non-blocking stylesheet (faster than @import) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts are self-hosted via @fontsource-variable (imported in src/index.css). -->
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Syne:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -70,6 +60,9 @@
             "slogan": "Perfection is standard.",
             "description": "A unified digital ecosystem that integrates anything and everything.",
             "logo": "https://yoxyfel.github.io/oxyfel/favicon.svg",
+            "email": "zhekov.yane123@gmail.com",
+            "foundingDate": "2024",
+            "sameAs": ["https://github.com/YOxyfel"],
             "member": [{ "@id": "https://yoxyfel.github.io/oxyfel/#yanez" }]
           },
           {
@@ -82,8 +75,24 @@
           },
           {
             "@type": "VideoGame",
-            "name": "Wan Lin Immortal",
+            "name": "Wuhen & Xuan: Heaven Defying",
             "url": "https://yoxyfel.github.io/wan-lin-immortal/",
+            "publisher": { "@id": "https://yoxyfel.github.io/oxyfel/#organization" }
+          },
+          {
+            "@type": "VideoGame",
+            "name": "Constellore",
+            "url": "https://yoxyfel.github.io/constellore/#wishlist",
+            "publisher": { "@id": "https://yoxyfel.github.io/oxyfel/#organization" }
+          },
+          {
+            "@type": "VideoGame",
+            "name": "Mosquitto",
+            "publisher": { "@id": "https://yoxyfel.github.io/oxyfel/#organization" }
+          },
+          {
+            "@type": "VideoGame",
+            "name": "Run & Bank",
             "publisher": { "@id": "https://yoxyfel.github.io/oxyfel/#organization" }
           },
           {
@@ -97,10 +106,92 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/oxyfel/assets/index-CXsoI8P2.js"></script>
-    <link rel="stylesheet" crossorigin href="/oxyfel/assets/index-CZGJu_8Q.css">
+
+    <!-- TODO analytics: create free account at goatcounter.com, uncomment, replace CODE -->
+    <!-- <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
+    <script type="module" crossorigin src="/oxyfel/assets/index-tr3QGGZ5.js"></script>
+    <link rel="stylesheet" crossorigin href="/oxyfel/assets/index-DK8sN6qB.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div class="bg-[#050505] text-[#f5f5f5] min-h-screen selection:bg-white selection:text-black relative overflow-x-hidden "><style>
+        .font-display { font-family: 'Syne Variable', 'Syne', sans-serif; }
+        .font-serif { font-family: 'Cormorant Garamond Variable', 'Cormorant Garamond', serif; }
+
+        /* Safe-area aware padding for the fixed corner navigation
+           (viewport-fit=cover is declared in index.html). */
+        .corner-nav {
+          padding-top: max(1.25rem, env(safe-area-inset-top));
+          padding-right: max(1.25rem, env(safe-area-inset-right));
+          padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+          padding-left: max(1.25rem, env(safe-area-inset-left));
+        }
+        @media (min-width: 640px) {
+          .corner-nav {
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
+            padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+          }
+        }
+        @media (min-width: 768px) {
+          .corner-nav {
+            padding-top: max(3rem, env(safe-area-inset-top));
+            padding-right: max(3rem, env(safe-area-inset-right));
+            padding-bottom: max(3rem, env(safe-area-inset-bottom));
+            padding-left: max(3rem, env(safe-area-inset-left));
+          }
+        }
+
+        /* Precision Crosshair Cursor */
+        .crosshair {
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+          pointer-events: none; z-index: 100; mix-blend-mode: difference;
+        }
+        .crosshair::before, .crosshair::after {
+          content: ''; position: absolute; background: white;
+          transition: transform 0.1s ease-out;
+        }
+        .crosshair::before {
+          width: 1px; height: 40px;
+          top: calc(var(--y) - 20px); left: var(--x);
+        }
+        .crosshair::after {
+          width: 40px; height: 1px;
+          top: var(--y); left: calc(var(--x) - 20px);
+        }
+
+        /* Hover state for crosshair */
+        body.is-hovering .crosshair::before { transform: scaleY(0.5); }
+        body.is-hovering .crosshair::after { transform: scaleX(0.5); }
+
+        /* Smooth Reveal Blocks */
+        .reveal-block {
+          opacity: 0; transform: translateY(40px);
+          transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-block.in-view {
+          opacity: 1; transform: translateY(0);
+        }
+        .reveal-block.delay-100 { transition-delay: 0.15s; }
+
+        @media (prefers-reduced-motion: reduce) {
+          html { scroll-behavior: auto; }
+          .reveal-block { opacity: 1; transform: none; transition: none; }
+        }
+      </style><div class="fixed inset-0 pointer-events-none z-50 corner-nav flex flex-col justify-between mix-blend-difference text-white"><div class="flex justify-between items-start font-display text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase"><a href="#top" class="pointer-events-auto p-3 -m-3 hover:opacity-50 transition-opacity ">OXYFEL / INDEX</a><div class="text-right pointer-events-auto">EST. <br/>2024</div></div><div class="flex justify-between items-end font-display text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase"><div class="flex flex-col gap-3 pointer-events-auto"><a href="https://github.com/YOxyfel" target="_blank" rel="noopener noreferrer" class="py-2 px-3 -mx-3 hover:opacity-50 transition-opacity ">GitHub</a></div><a href="#contact" class="pointer-events-auto text-right p-3 -m-3 hover:opacity-50 transition-opacity ">CONTACT <br/> ↓</a></div></div><section id="top" class="relative min-h-[100svh] w-full overflow-hidden bg-[#050505] flex items-center justify-center"><div class="relative z-10 flex flex-col items-center justify-center text-center px-6 w-full"><p class="mb-5 text-[11px] font-display tracking-[0.4em] uppercase text-white/50 font-bold">The Philosophy of</p><h1 class="max-w-full text-[clamp(2rem,11vw,5rem)] font-display font-bold leading-[0.82] tracking-tighter text-[#f5f5f5]">OXYFEL</h1><p class="mt-6 font-display text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 max-w-md leading-relaxed">A studio building original games and UE5 gameplay systems.</p><p class="mt-8 text-lg sm:text-xl font-serif italic text-white/70 max-w-md">&quot;From nothing we layer, until perfection is but the result.&quot;</p></div></section><section class="py-24 md:py-48 px-6 md:px-12 bg-[#050505] relative z-20 border-t border-white/10"><div class="max-w-7xl mx-auto"><div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start"><div class="md:col-span-4 reveal-block"><h2 class="font-display text-[10px] md:text-sm uppercase tracking-[0.3em] text-white/50 border-b border-white/20 pb-4 mb-8">I. The Integration</h2><p class="text-3xl md:text-4xl font-serif leading-tight">We integrate anything and everything.</p><p class="mt-6 text-xs md:text-sm font-display text-white/40 leading-relaxed uppercase tracking-widest">A unified ecosystem devoid of friction. Operating across disciplines to form a singular, monolithic standard.</p></div><div class="md:col-span-8 md:mt-32 reveal-block delay-100 flex h-full w-full"><div class="w-full border border-white/10 p-6 pt-16 md:p-12 md:pt-20 relative overflow-hidden group hover:border-white/30 transition-colors duration-700 flex flex-col justify-between"><div class="absolute top-0 right-0 p-4 md:p-6 font-display text-[10px] text-white/30 whitespace-nowrap">OXYFEL DOC. 01</div><h3 class="text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-display font-bold leading-[0.9] tracking-tighter uppercase break-words mt-2">The limit <br/><span class="text-white/20">&amp;</span> the <br/>minimum</h3><div class="mt-16 md:mt-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8"><div class="w-16 h-px bg-white/50 shrink-0"></div><p class="text-3xl md:text-5xl lg:text-6xl font-serif italic text-white/90">is perfection, for us.</p></div></div></div></div></div></section><section class="flex flex-col md:flex-row md:h-screen bg-[#f5f5f5] text-[#050505] relative z-20 border-t border-black/10 overflow-hidden"><h2 class="sr-only">The Divisions</h2><div role="button" tabindex="0" aria-expanded="false" aria-label="Team — The People" class="
+                group relative flex flex-col justify-between text-left border-b md:border-b-0 md:border-r border-black/15 overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[40vh] md:min-h-0 outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-black/40
+                cursor-pointer
+                flex-1 md:flex-[1] hover:bg-black/5
+              "><div class="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out opacity-0"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=60&amp;w=800&amp;auto=format&amp;fit=crop" srcSet="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=60&amp;w=480&amp;auto=format&amp;fit=crop 480w, https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=60&amp;w=800&amp;auto=format&amp;fit=crop 800w" sizes="(min-width: 768px) 80vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale mix-blend-luminosity"/></div><div class="p-4 md:p-8 z-10 flex flex-row md:flex-col justify-between md:h-full gap-4 items-center md:items-start"><div class="flex items-center gap-3 md:flex-col md:items-start md:gap-4"><span class="font-display text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-colors duration-500 text-black/40">01</span><span aria-hidden="true" class="font-display text-lg leading-none transition-all duration-500 text-black/40">+</span></div><span class="hidden md:block font-display text-[10px] uppercase tracking-[0.4em] transform -rotate-180 writing-vertical-rl whitespace-nowrap transition-colors duration-500 text-black/40">The People</span><span class="md:hidden font-display text-[10px] uppercase tracking-[0.3em] transition-colors duration-500 text-right text-black/40">The People</span></div><div class="p-4 md:p-8 z-10 mt-auto relative w-full transition-all duration-700 "><h3 class="
+                  font-display font-bold uppercase tracking-tighter transition-all duration-[800ms] leading-[0.9]
+                  text-2xl md:text-3xl md:transform md:-rotate-90 md:origin-bottom-left md:translate-y-4 md:translate-x-2 md:w-max
+                ">Team</h3><div class="overflow-hidden transition-all duration-700 w-full max-h-0 opacity-0 mt-0 pointer-events-none"><div class="border-t border-white/20 pt-5 max-w-xl"><ul class="space-y-3"><li><a href="https://v0-yanez.vercel.app/en" target="_blank" rel="noopener noreferrer" tabindex="-1" class="group/item flex items-baseline justify-between gap-6 hover:text-white/60 transition-colors duration-300 border-b border-white/15 pb-3"><span class="font-serif italic text-2xl md:text-3xl lg:text-4xl">Yanez</span><span class="font-display text-[10px] uppercase tracking-[0.25em] text-white/50 whitespace-nowrap">Founder<!-- --> <span aria-hidden="true">↗</span></span></a></li></ul><a href="mailto:zhekov.yane123@gmail.com" tabindex="-1" class="mt-6 inline-block font-display text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300 border-b border-white/30 pb-1">Hire us for UE5 gameplay systems<!-- --> <span aria-hidden="true">→</span></a></div></div></div></div><div role="button" tabindex="0" aria-expanded="false" aria-label="Products — What We Build" class="
+                group relative flex flex-col justify-between text-left border-b md:border-b-0 md:border-r border-black/15 overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] min-h-[40vh] md:min-h-0 outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-black/40
+                cursor-pointer
+                flex-1 md:flex-[1] hover:bg-black/5
+              "><div class="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out opacity-0"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=60&amp;w=800&amp;auto=format&amp;fit=crop" srcSet="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=60&amp;w=480&amp;auto=format&amp;fit=crop 480w, https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=60&amp;w=800&amp;auto=format&amp;fit=crop 800w" sizes="(min-width: 768px) 80vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale mix-blend-luminosity"/></div><div class="p-4 md:p-8 z-10 flex flex-row md:flex-col justify-between md:h-full gap-4 items-center md:items-start"><div class="flex items-center gap-3 md:flex-col md:items-start md:gap-4"><span class="font-display text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-colors duration-500 text-black/40">02</span><span aria-hidden="true" class="font-display text-lg leading-none transition-all duration-500 text-black/40">+</span></div><span class="hidden md:block font-display text-[10px] uppercase tracking-[0.4em] transform -rotate-180 writing-vertical-rl whitespace-nowrap transition-colors duration-500 text-black/40">What We Build</span><span class="md:hidden font-display text-[10px] uppercase tracking-[0.3em] transition-colors duration-500 text-right text-black/40">What We Build</span></div><div class="p-4 md:p-8 z-10 mt-auto relative w-full transition-all duration-700 "><h3 class="
+                  font-display font-bold uppercase tracking-tighter transition-all duration-[800ms] leading-[0.9]
+                  text-2xl md:text-3xl md:transform md:-rotate-90 md:origin-bottom-left md:translate-y-4 md:translate-x-2 md:w-max
+                ">Products</h3><div class="overflow-hidden transition-all duration-700 w-full max-h-0 opacity-0 mt-0 pointer-events-none"><div class="border-t border-white/20 pt-5 max-w-xl"><div class="space-y-5"><div><p class="font-display text-[10px] uppercase tracking-[0.4em] text-white/50 mb-2">Games</p><ul class="space-y-2"><li><a href="https://yoxyfel.github.io/wan-lin-immortal/" target="_blank" rel="noopener noreferrer" tabindex="-1" class="group/item flex items-baseline justify-between gap-6 hover:text-white/60 transition-colors duration-300"><span class="font-serif italic text-2xl md:text-3xl lg:text-4xl">Wuhen &amp; Xuan: Heaven Defying</span><span class="shrink-0 font-display text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/50">Explore<!-- --> <span aria-hidden="true">↗</span></span></a></li><li><a href="https://yoxyfel.github.io/constellore/#wishlist" target="_blank" rel="noopener noreferrer" tabindex="-1" class="group/item flex items-baseline justify-between gap-6 hover:text-white/60 transition-colors duration-300"><span class="font-serif italic text-2xl md:text-3xl lg:text-4xl">Constellore</span><span class="shrink-0 font-display text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/50">Wishlist<!-- --> <span aria-hidden="true">↗</span></span></a></li><li><div aria-disabled="true" class="flex items-baseline justify-between gap-6 text-white/60"><span class="font-serif italic text-2xl md:text-3xl lg:text-4xl">Mosquitto</span><span class="shrink-0 font-display text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/35">Coming soon</span></div></li><li><div aria-disabled="true" class="flex items-baseline justify-between gap-6 text-white/60"><span class="font-serif italic text-2xl md:text-3xl lg:text-4xl">Run &amp; Bank</span><span class="shrink-0 font-display text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/35">Coming soon</span></div></li></ul></div></div><a href="https://yoxyfel.github.io/wan-lin-immortal/" tabindex="-1" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block font-display text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors duration-300 border-b border-white/30 pb-1">Explore Wuhen &amp; Xuan<!-- --> <span aria-hidden="true">→</span></a></div></div></div></div></section><footer id="contact" class="bg-[#050505] text-[#f5f5f5] pt-32 pb-24 md:pb-12 px-6 md:px-12 relative z-20 border-t border-white/10 flex flex-col items-center justify-center text-center overflow-hidden"><div class="reveal-block w-full max-w-full px-4"><p class="font-display text-[10px] md:text-xs uppercase tracking-[0.5em] text-white/40 mb-8">Initiate Sequence</p><a href="mailto:zhekov.yane123@gmail.com" class="inline-block text-[8vw] md:text-[6vw] font-serif italic hover:text-white/50 transition-colors duration-500 break-all ">zhekov.yane123@gmail.com</a></div><div class="mt-24 md:mt-32 w-full border-t border-white/10 pt-8 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center font-display text-[9px] uppercase tracking-[0.3em] text-white/30 reveal-block delay-100"><span>© <!-- -->2026<!-- --> Oxyfel</span><a href="/oxyfel/privacy.html" class="hover:text-white/60 transition-colors ">Privacy</a><span>Perfection is standard</span></div></footer></div></div>
   </body>
 </html>
