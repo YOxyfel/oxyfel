@@ -26,3 +26,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Local design review, captures, and source backups
+/audit/
+/design-qa.md
