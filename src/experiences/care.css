@@ -367,3 +367,5 @@
 .care-experience .c-inquiry-mark { text-align: center; margin-top: 0; }
 .care-experience .c-guide-export button[aria-disabled=true] { opacity: .65; cursor: progress; }
 .care-experience .c-visual-guide li img { max-height: 245px; object-fit: contain; }
+
+.care-experience .c-website-link{display:flex;align-items:center;gap:10px;width:fit-content;max-width:100%;min-height:44px;margin-top:14px;font-size:14px;line-height:1.6;color:#304237;text-decoration:underline;text-underline-offset:5px}.care-experience .c-website-link>svg{flex-shrink:0}.care-experience .c-website-access{font-size:12px;line-height:1.6;color:#465c3d;margin-top:2px}

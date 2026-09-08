@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { ArrowRight, ArrowUpRight, GridFour, X } from '@phosphor-icons/react'
-import { portfolioProjects } from '../content'
+import { elderviceWebsite, portfolioProjects } from '../content'
 
 export type Experience = 'hub' | 'worlds' | 'care' | 'studio'
 export type SiteLocale = 'en' | 'bg'
@@ -65,6 +65,7 @@ export function HubFooter({ page, locale = 'en' }: { page: Experience; locale?: 
     <div className="h-footer-top">
       <p>{bg ? 'Има още за откриване.' : 'There is more to discover.'}<br /><em>{bg ? 'Изберете друга посока.' : 'Follow a different thread.'}</em></p>
       <nav aria-label={bg ? 'Разгледайте още' : 'Keep exploring'}>
+        <a href={elderviceWebsite.href} target="_blank" rel="noopener noreferrer">{bg ? 'Сайтът на Eldervice' : 'Eldervice website'}{elderviceWebsite.requiresSignIn && <span>{bg ? ' (с достъп)' : ' (sign-in required)'}</span>}<ArrowUpRight size={17} aria-hidden="true" /><span className="sr-only">{bg ? ' (отваря нов раздел)' : ' (opens in a new tab)'}</span></a>
         {page !== 'hub' && <a href={route('hub')}>{bg ? 'Към началото' : 'Back to the hub'} <ArrowRight size={17} aria-hidden="true" /></a>}
         {page !== 'worlds' && <a href={route('worlds')}>{bg ? 'Оригинални игри' : 'Explore original games'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
         {page !== 'care' && <a href={route('care')}>{bg ? 'Помощ в ежедневието' : 'Try an Eldervice visit'} <ArrowUpRight size={17} aria-hidden="true" /></a>}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { ArrowDown, ArrowRight, Check, DeviceMobile, Monitor, Television } from '@phosphor-icons/react'
-import { media } from '../content'
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, DeviceMobile, Monitor, Television } from '@phosphor-icons/react'
+import { elderviceWebsite, media } from '../content'
 import { ContactPanel } from '../components/ContactPanel'
 import { careCopy } from './care-copy'
 import type { CareDevice, CareLocale } from './care-copy'
@@ -80,6 +80,7 @@ export default function CareExperience() {
         <h1 id="care-title">{t.title[0]}<br />{t.title[1]}<br /><em>{t.title[2]}</em></h1>
         <p className="c-opening-description">{t.opening}</p>
         <a className="c-primary-link" href="#a-visit">{t.explore} <ArrowDown size={19} aria-hidden="true" /></a>
+        <a className="c-website-link" href={elderviceWebsite.href} target="_blank" rel="noopener noreferrer">{locale === 'bg' ? 'Посетете сайта на Eldervice' : 'Visit the Eldervice website'}<ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only">{locale === 'bg' ? ' (отваря нов раздел)' : ' (opens in a new tab)'}</span></a>{elderviceWebsite.requiresSignIn && <p className="c-website-access">{locale === 'bg' ? 'Частен преглед · необходим е достъп' : 'Private preview · sign-in required'}</p>}
         <p className="c-pilot"><span aria-hidden="true" />{t.pilot}</p>
       </div>
     </section>

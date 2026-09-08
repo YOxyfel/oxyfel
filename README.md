@@ -37,7 +37,7 @@ Guide edits are local page state, with a separate draft for each device while th
 
 ### Studio
 
-The three cases connect the problem and the maker's role to concrete decisions and outputs. Websites includes a controllable comparison of real previous/current hub captures and a mobile result. Games uses correctly labelled Mosquittoz model and LAN-menu evidence. Interactive exposes details of a real Constellore practice interface and links to its playable browser edition. Case fragments such as `/oxyfel/studio/#case-games` and `#case-interactive` support curated links from Worlds.
+The three cases connect the problem and the maker's role to concrete decisions and outputs. Websites includes a controllable comparison of real previous/current hub captures and a mobile result. Games uses correctly labelled Mosquittoz model and packaged teamplay runtime evidence, with full-size capture links. Interactive exposes details of a real Constellore practice interface and links to its playable browser edition. Case fragments such as `/oxyfel/studio/#case-games` and `#case-interactive` support curated links from Worlds.
 
 The Studio entrance uses actual work materials rather than presenting fantasy artwork as evidence of development. Screenshot labels distinguish gameplay, menus, models, sample interfaces, and previous website editions.
 

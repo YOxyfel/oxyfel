@@ -1,3 +1,4 @@
+export const elderviceWebsite = { href: 'https://eldervice-varna.groovy-scout-5634.chatgpt.site/', requiresSignIn: true }
 export const CONTACT_EMAIL = 'zhekov.yane123@gmail.com'
 export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`
 export const UE5_CONTACT_HREF = `${CONTACT_HREF}?subject=UE5%20gameplay%20project`
@@ -78,7 +79,7 @@ export const portfolioProjects: PortfolioProject[] = [
     description: 'Patient technology help for older people, in their own homes. Personal, large-print guides make everyday phones, computers, and televisions easier to use after the visit.',
     image: 'eldervice-service-illustration.webp',
     alt: 'Illustrated Eldervice service example: a patient helper supports an older adult using a phone at home.',
-    caption: 'Service illustration',
+    caption: 'Service illustration', href: elderviceWebsite.href, actionLabel: 'Visit Eldervice', external: true,
     notes: ['A Bulgarian-first service concept for in-home technology help in Varna.', 'Personal large-print, laminated guides support the person after the visit.', 'The project also includes visual-guide creation tools. Its website preview is private.'],
   },
   {

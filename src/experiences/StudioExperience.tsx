@@ -61,14 +61,14 @@ function WebsiteEvidence() {
 }
 
 function GameEvidence() {
-  const [view, setView] = useState<'model' | 'menu'>('model')
+  const [view, setView] = useState<'model' | 'runtime'>('model')
   return <div className="s-evidence">
-    <div className="s-evidence-toolbar"><span>Mosquittoz / recorded development</span><div role="group" aria-label="Mosquittoz development evidence"><button type="button" aria-pressed={view === 'model'} onClick={() => setView('model')}>In-engine model</button><button type="button" aria-pressed={view === 'menu'} onClick={() => setView('menu')}>LAN alpha menu</button></div></div>
+    <div className="s-evidence-toolbar"><span>Mosquittoz / recorded development</span><div role="group" aria-label="Mosquittoz development evidence"><button type="button" aria-pressed={view === 'model'} onClick={() => setView('model')}>In-engine model</button><button type="button" aria-pressed={view === 'runtime'} onClick={() => setView('runtime')}>Teamplay in engine</button></div></div>
     <figure className={`s-engine-proof s-engine-proof-${view}`}>
-      <div><img src={media(view === 'model' ? 'studio-mosquitto-model.webp' : 'studio-mosquitto-menu.webp')} width={view === 'model' ? 1280 : 640} height={view === 'model' ? 720 : 360} loading="lazy" alt={view === 'model' ? 'The integrated Average Mosquitto model in an Unreal Engine prototype render.' : 'Recorded Swarm Windows alpha menu showing Host LAN and a LAN server browser.'} /></div>
-      <figcaption>{view === 'model' ? 'Integrated Average model · in-engine render' : 'Windows Swarm alpha · recorded menu, 17 August 2026'}<span>{view === 'model' ? 'Model evidence, not gameplay' : 'Menu capture, not gameplay footage'}</span></figcaption>
+      <div><img src={media(view === 'model' ? 'studio-mosquitto-model.webp' : 'studio-mosquitto-teamplay.webp')} width={view === 'model' ? 1280 : 1920} height={view === 'model' ? 720 : 1080} loading="lazy" alt={view === 'model' ? 'The integrated Average Mosquitto model in an Unreal Engine prototype render.' : 'Packaged Swarm runtime test: a mosquito marks a human as a rally target while four AI flyers respond in the yard.'} /></div>
+      <figcaption>{view === 'model' ? 'Integrated Average model · in-engine render' : 'Swarm teamplay prototype · 6 September 2026'}<span>{view === 'model' ? 'Model evidence, not gameplay' : 'Fixed-position development test'}</span></figcaption>
     </figure>
-    <noscript><p className="s-static-links">Also inspect the <a href={media('studio-mosquitto-menu.webp')}>recorded Windows LAN alpha menu</a>.</p></noscript>
+    <p className="s-static-links s-source-link"><a href={media(view === 'model' ? 'studio-mosquitto-model.webp' : 'studio-mosquitto-teamplay.webp')} target="_blank" rel="noopener noreferrer">Open full-size capture <ArrowUpRight size={15} aria-hidden="true" /><span className="sr-only"> (opens in a new tab)</span></a></p><noscript><p className="s-static-links">Also inspect the <a href={media('studio-mosquitto-teamplay.webp')}>Swarm teamplay runtime capture</a>.</p></noscript>
     <Decisions id="games" items={[
       { title: 'One shared economy', body: 'Feeding, depositing blood, incubation, and colony growth connect to the same server-owned game state. Humans can interrupt that loop by destroying the nests.' },
       { title: 'Players before AI', body: 'Ready hatchlings revive waiting players before the colony spends its surplus on AI. That ordering gives the shared resource an immediate team purpose.' },
