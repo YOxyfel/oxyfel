@@ -1,12 +1,12 @@
 {
-  "name": "Oxyfel — Digital Ecosystem",
+  "name": "Oxyfel — Worlds, Everyday & Studio",
   "short_name": "Oxyfel",
-  "description": "A unified digital ecosystem. We integrate anything and everything.",
+  "description": "One hub. Three distinct experiences: original games, help for everyday life, and creative development.",
   "start_url": "/oxyfel/",
   "scope": "/oxyfel/",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#050505",
+  "background_color": "#080c0d",
+  "theme_color": "#080c0d",
   "icons": [
     {
       "src": "/oxyfel/favicon.svg",
