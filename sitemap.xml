@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://yoxyfel.github.io/oxyfel/</loc></url>
-  <url><loc>https://yoxyfel.github.io/oxyfel/worlds/</loc></url>
-  <url><loc>https://yoxyfel.github.io/oxyfel/care/</loc></url>
-  <url><loc>https://yoxyfel.github.io/oxyfel/studio/</loc></url>
-  <url><loc>https://yoxyfel.github.io/oxyfel/privacy.html</loc></url>
+  <url><loc>https://yoxyfel.github.io/oxyfel/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://yoxyfel.github.io/oxyfel/games/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://yoxyfel.github.io/oxyfel/studio/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://yoxyfel.github.io/oxyfel/care/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://yoxyfel.github.io/oxyfel/privacy/</loc><lastmod>2026-11-06</lastmod></url>
 </urlset>

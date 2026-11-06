@@ -1,18 +1,36 @@
 {
-  "name": "Oxyfel — Worlds, Everyday & Studio",
+  "name": "Oxyfel",
   "short_name": "Oxyfel",
-  "description": "One hub. Three distinct experiences: original games, help for everyday life, and creative development.",
+  "description": "Oxyfel makes games for players, builds for companies and helps people with everyday technology.",
   "start_url": "/oxyfel/",
   "scope": "/oxyfel/",
   "display": "standalone",
-  "background_color": "#080c0d",
-  "theme_color": "#080c0d",
+  "background_color": "#0a0908",
+  "theme_color": "#0a0908",
   "icons": [
     {
       "src": "/oxyfel/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
+    },
+    {
+      "src": "/oxyfel/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/oxyfel/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/oxyfel/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
