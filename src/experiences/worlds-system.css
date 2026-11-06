@@ -1,0 +1,61 @@
+/* The five worlds in development, brought into the Oxyfel system on the Games page.
+   Only looks change here (type, light, surfaces, shapes); layout and behaviour stay in
+   worlds.css and worlds-depth.css. Each game's demo keeps its own accent colour. */
+.games-experience .worlds-experience { --w-ink: var(--ink); --w-accent: var(--light); --w-ground: var(--bg); background: var(--bg); font-family: var(--sans) }
+
+/* Picker */
+.games-experience .worlds-experience .w-selector { background: color-mix(in srgb, var(--bg) 84%, transparent); border-top-color: var(--line); border-bottom-color: var(--line); backdrop-filter: blur(18px) saturate(1.2)}
+.games-experience .worlds-experience .w-selector-intro { color: var(--ink-3); font-weight: 700; letter-spacing: .2em }
+.games-experience .worlds-experience .w-current-track { color: var(--light); font-weight: 800 }
+.games-experience .worlds-experience .w-selector { padding-inline: var(--pad); gap: 10px; padding-block: 10px }
+.games-experience .worlds-experience .w-selector ol { gap: 10px }
+.games-experience .worlds-experience .w-selector li a { color: var(--ink-2); font-weight: 700; letter-spacing: -.005em; border-bottom-width: 0; border-radius: 16px; background: linear-gradient(0deg, #050506f2 10%, #050506a6), var(--thumb, none) center / cover; box-shadow: 0 0 0 1px var(--line) inset; transition: color .25s, box-shadow .3s, background-size .6s }
+.games-experience .worlds-experience .w-scene-top { left: var(--pad); right: var(--pad) }
+.games-experience .worlds-experience .w-scene-copy { margin-inline: var(--pad) 0 }
+.games-experience .worlds-experience .w-art-credit { right: var(--pad) }
+.games-experience .worlds-experience .w-discover { left: var(--pad) }
+.games-experience .worlds-experience .w-selector li a:hover { color: var(--ink); box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 50%, transparent) inset }
+.games-experience .worlds-experience .w-selector li a[aria-current='true'] { color: var(--ink); background: linear-gradient(0deg, #050506cc 5%, #05050633), var(--thumb, none) center / cover; box-shadow: 0 0 0 2px var(--light) inset, 0 14px 40px -18px var(--light) }
+.games-experience .worlds-experience .w-selector-number { font-weight: 800; letter-spacing: .14em }
+.games-experience .worlds-experience .w-selector-dot { background: var(--light); box-shadow: 0 0 8px var(--light); width: 6px; height: 6px }
+
+/* Scenes */
+.games-experience .worlds-experience .w-scene { background: var(--bg) }
+.games-experience .worlds-experience .w-scene-art::after { background: linear-gradient(90deg, #050506e6 0%, #05050699 38%, #05050610 75%), linear-gradient(0deg, #050506f2 0%, transparent 62%) }
+.games-experience .worlds-experience .w-scene-top { font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 11px }
+.games-experience .worlds-experience .w-genre { border-radius: 999px; padding: 9px 15px; background: color-mix(in srgb, var(--bg) 55%, transparent); border-color: var(--line-2) }
+.games-experience .worlds-experience .w-premise { font-weight: 700; color: var(--light-hot) }
+.games-experience .worlds-experience .w-scene h2 { font-family: var(--display); font-weight: 800; font-size: clamp(46px, 7.6vw, 128px); line-height: .86; letter-spacing: -.055em; text-transform: uppercase; text-shadow: 0 10px 50px #000a }
+.games-experience .worlds-experience .w-subtitle { color: var(--light); font-weight: 700; letter-spacing: .3em }
+.games-experience .worlds-experience .w-story { color: var(--ink-2); font-size: 17px }
+.games-experience .worlds-experience .w-primary { min-height: 54px; padding: 0 26px; border: 0; border-radius: 999px; font-weight: 700; font-size: 15px; color: var(--light-ink); background: linear-gradient(180deg, var(--light-hot), var(--light) 55%, color-mix(in srgb, var(--light) 70%, var(--light-deep))); box-shadow: 0 14px 40px -14px var(--light); transition: transform .3s var(--ease), box-shadow .3s }
+.games-experience .worlds-experience .w-primary:hover { background: var(--light-hot); border: 0; transform: translateY(-2px); box-shadow: 0 18px 50px -12px var(--light) }
+.games-experience .worlds-experience .w-status { color: var(--ink-2); font-weight: 600 }
+.games-experience .worlds-experience .w-status i { background: var(--light); box-shadow: 0 0 8px var(--light); width: 7px; height: 7px }
+.games-experience .worlds-experience .w-art-credit { border-radius: 999px; padding: 7px 13px; background: color-mix(in srgb, var(--bg) 70%, transparent); color: var(--ink-2) }
+.games-experience .worlds-experience .w-discover { color: var(--ink-2); font-weight: 600; letter-spacing: .08em; text-transform: uppercase }
+
+/* Chapters */
+.games-experience .worlds-experience .w-overline { color: var(--light); font-weight: 700; letter-spacing: .26em }
+.games-experience .worlds-experience .w-proof-intro h2 { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 4.4vw, 68px); line-height: .96; letter-spacing: -.045em }
+.games-experience .worlds-experience .w-proof-intro > p:last-child { color: var(--ink-2) }
+.games-experience .worlds-experience .w-proof-art { border-radius: 24px; overflow: hidden; background: var(--surface) }
+.games-experience .worlds-experience .w-proof-art figcaption { background: transparent; padding: 16px 18px; color: var(--ink-3) }
+.games-experience .worlds-experience .w-development-notes { border-color: var(--line); border-radius: 0 }
+.games-experience .worlds-experience .w-development-notes summary { font-weight: 700 }
+.games-experience .worlds-experience .w-development-notes a { border-bottom-color: var(--light); color: var(--light); font-weight: 700 }
+.games-experience .worlds-experience .w-next-world { border-top-color: var(--line) }
+.games-experience .worlds-experience .w-next-world a { font-family: var(--display); font-weight: 800; letter-spacing: -.04em; text-transform: uppercase; color: var(--ink); transition: color .25s }
+.games-experience .worlds-experience .w-next-world a:hover { color: var(--light) }
+
+/* Demos: one shape language, each game keeps its own colour */
+.games-experience .wd-word-lab, .games-experience .wd-cargo-lab, .games-experience .wd-momentum-lab, .games-experience .wd-scope-lab { border-radius: 26px }
+.games-experience .wd-evidence > a, .games-experience .wd-plan-viewport, .games-experience .wd-development-spread figure { border-radius: 20px; overflow: hidden }
+.games-experience .wd-word-inventory button, .games-experience .wd-zoom-control button, .games-experience .wd-test-controls button, .games-experience .wd-plan-choice button, .games-experience .wd-area-choice button { border-radius: 999px; font-weight: 600 }
+.games-experience .wd-gate-choice > div button, .games-experience .wd-role-choice { border-radius: 18px }
+.games-experience .wd-enlarge { border-radius: 999px }
+.games-experience .wd-hint { border-radius: 0 14px 14px 0 }
+.games-experience .wd-development-spread h3, .games-experience .wd-cargo-lab h4, .games-experience .wd-pair > span, .games-experience .wd-role-choice button { font-family: var(--display); font-weight: 800; letter-spacing: -.03em }
+.games-experience .wd-cargo-totals strong, .games-experience .wd-momentum-head strong { font-family: var(--display); font-weight: 800; letter-spacing: -.05em }
+.games-experience .wd-momentum-head small { font-family: var(--sans); font-weight: 600 }
+.games-experience .wd-studio-connection a { color: var(--light); font-weight: 700 }

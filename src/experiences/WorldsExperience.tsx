@@ -56,12 +56,21 @@ const scenes = [
 
 type WorldId = typeof scenes[number]['id']
 
+// Smaller copies (made in Phase 1) so phones don't download the full 1792px artwork.
+function sceneSources(image: string) {
+  const name = image.replace(/\.webp$/, '')
+  return name === 'run-bank-vault'
+    ? `${media('run-bank-vault-640.webp')} 640w, ${media(image)} 1024w`
+    : `${media(`${name}-640.webp`)} 640w, ${media(`${name}-1280.webp`)} 1280w, ${media(image)} 1792w`
+}
+
 function worldFromHash(): WorldId | undefined {
   const id = window.location.hash.replace(/^#(?:proof-)?/, '')
   return scenes.find(scene => scene.id === id)?.id
 }
 
-export default function WorldsExperience() {
+// Shown inside the Oxyfel Games page as its "In development" section; that page owns the h1.
+export default function WorldsExperience({ embedded = false }: { embedded?: boolean }) {
   // Keep the first client render identical to server HTML. Without JavaScript,
   // all five scenes and proof chapters remain visible and native links still work.
   const [enhanced, setEnhanced] = useState(false)
@@ -117,11 +126,11 @@ export default function WorldsExperience() {
 
   return (
     <div className={`worlds-experience${enhanced ? ' w-enhanced' : ''}`} data-world={active}>
-      <h1 className="w-sr-only">Worlds by Oxyfel — five games to explore</h1>
+      {!embedded && <h1 className="w-sr-only">Oxyfel Games: five games in development</h1>}
       <nav className="w-selector" aria-label="Choose a game world">
         <div className="w-selector-intro"><span>Choose a world</span><span className="w-current-track" aria-live="polite">0{activeIndex + 1} <i>/</i> 05</span></div>
         <ol ref={selector}>
-          {scenes.map((scene, index) => <li key={scene.id}><a href={`#${scene.id}`} aria-current={active === scene.id ? 'true' : undefined} onClick={event => selectWorld(event, scene.id)}><span className="w-selector-number">0{index + 1}</span><span>{scene.short}</span><span className="w-selector-dot" aria-hidden="true" /></a></li>)}
+          {scenes.map((scene, index) => <li key={scene.id}><a href={`#${scene.id}`} aria-current={active === scene.id ? 'true' : undefined} onClick={event => selectWorld(event, scene.id)} style={{ ['--thumb' as string]: `url(${media(scene.image.replace(/\.webp$/, '-640.webp'))})` }}><span className="w-selector-number">0{index + 1}</span><span>{scene.short}</span><span className="w-selector-dot" aria-hidden="true" /></a></li>)}
         </ol>
       </nav>
       <div className="w-stage" ref={stage}>
@@ -130,8 +139,8 @@ export default function WorldsExperience() {
           const isPublic = scene.href.startsWith('https:')
           return (
             <section className={`w-scene w-scene--${scene.id}`} id={scene.id} key={scene.id} hidden={enhanced && active !== scene.id} aria-labelledby={`w-title-${scene.id}`}>
-              <div className="w-scene-art"><img src={media(scene.image)} alt={scene.imageAlt} width={scene.id === 'run-bank' ? 1024 : 1792} height={scene.id === 'run-bank' ? 1536 : 1024} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'} /></div>
-              <div className="w-scene-top"><p>Oxyfel <span>/</span> Worlds <span>/</span> 0{index + 1}</p><p className="w-genre">{scene.genre}</p></div>
+              <div className="w-scene-art"><img src={media(scene.image)} srcSet={sceneSources(scene.image)} sizes="100vw" alt={scene.imageAlt} width={scene.id === 'run-bank' ? 1024 : 1792} height={scene.id === 'run-bank' ? 1536 : 1024} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'} /></div>
+              <div className="w-scene-top"><p>Oxyfel Games <span>/</span> In development <span>/</span> 0{index + 1}</p><p className="w-genre">{scene.genre}</p></div>
               <div className="w-scene-copy">
                 <p className="w-premise">{scene.line}</p>
                 <h2 id={`w-title-${scene.id}`} tabIndex={-1}>{scene.label}</h2>

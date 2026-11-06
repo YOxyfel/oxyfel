@@ -1,0 +1,172 @@
+/* Oxyfel Games: the gold light, with Chop-a-Chop! out front. */
+.games-experience { overflow: clip }
+
+/* Hero: full-bleed gameplay under the gold light */
+.g-hero { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 36px; min-height: max(760px, 100svh); padding: calc(var(--shell-header) + 60px) var(--pad) 110px }
+.g-hero-video { position: absolute; inset: 0; z-index: -2 }
+.g-hero-video .ox-video-poster, .g-hero-video .ox-video-media { object-position: 50% 45% }
+.g-hero-video .ox-video-toggle { top: calc(var(--shell-header) + 14px); bottom: auto; right: var(--h-gutter) }
+.g-hero-shade { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, #050506eb 0%, #05050699 32%, #05050600 66%), linear-gradient(0deg, var(--bg) 0%, #050506cc 16%, transparent 50%), linear-gradient(180deg, #050506aa 0%, transparent 18%), radial-gradient(ellipse 50% 60% at 0% 100%, color-mix(in srgb, var(--light) 28%, transparent), transparent 70%) }
+.g-hero-copy { max-width: 700px }
+.g-presents { display: inline-flex; align-items: center; gap: 12px; font: 700 12px/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--light); text-shadow: 0 2px 10px #000; animation: g-rise .9s var(--ease) .1s backwards }
+.g-presents-star { width: 34px; height: auto; filter: drop-shadow(0 0 12px #f6c453aa) }
+.g-hero h1 { margin-top: 22px }
+.g-logo { width: min(100%, 660px); height: auto; filter: drop-shadow(0 14px 30px #000d) drop-shadow(0 0 50px #f6c45330); animation: g-slam .9s cubic-bezier(.2, 1.4, .4, 1) .25s backwards }
+@keyframes g-slam { from { opacity: 0; transform: scale(1.2) translateY(-12px) } 60% { opacity: 1 } }
+.g-tagline { margin-top: 24px; font: 800 clamp(30px, 3.4vw, 52px)/.95 var(--display); letter-spacing: -.04em; text-transform: uppercase; text-shadow: 0 4px 24px #000c }
+.g-pitch { margin-top: 18px; font-size: 18px; line-height: 1.7; color: #ece7da; max-width: 50ch; text-shadow: 0 2px 14px #000b; animation: g-rise .9s var(--ease) .7s backwards }
+.g-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; animation: g-rise .9s var(--ease) .85s backwards }
+.g-play { animation: g-pulse 2.8s ease-in-out 2.2s infinite }
+@keyframes g-pulse { 50% { box-shadow: 0 0 0 1px var(--light-hot) inset, 0 0 0 12px #f6c45300, 0 14px 60px -6px var(--light) } }
+.g-live { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 22px; font-size: 14px; color: #dcefd2; animation: g-rise .9s var(--ease) 1s backwards }
+.g-live a { display: inline-flex; align-items: center; gap: 4px; color: var(--light-hot); text-decoration: underline; text-underline-offset: 4px }
+.g-hero-drops { list-style: none; padding: 0; display: grid; gap: 10px; width: 320px; animation: g-rise .9s var(--ease) 1.1s backwards }
+@keyframes g-rise { from { opacity: 0; transform: translateY(24px) } }
+.g-scroll { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3) }
+.g-scroll svg { animation: g-bob 2.2s ease-in-out infinite }
+.g-scroll:hover { color: var(--light) }
+@keyframes g-bob { 50% { transform: translateY(6px) } }
+
+/* Embers drifting up through the hero */
+.g-embers { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden }
+.g-embers i { position: absolute; bottom: -10px; border-radius: 50%; background: #ffd77a; box-shadow: 0 0 10px 2px #f0a83caa; opacity: 0; animation: g-ember linear infinite }
+@keyframes g-ember { 0% { transform: translate(0, 0); opacity: 0 } 12% { opacity: .9 } 80% { opacity: .45 } 100% { transform: translate(var(--drift), -92vh); opacity: 0 } }
+
+/* Trailer */
+.g-trailer { width: min(1200px, 94vw); max-width: none; padding: 0; border: 0; background: transparent; overflow: visible }
+.g-trailer::backdrop { background: #000000d9; backdrop-filter: blur(8px) }
+.g-trailer-frame { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 0 0 1px var(--line-2), 0 40px 120px #000, 0 0 120px -40px var(--light) }
+.g-trailer video { width: 100%; aspect-ratio: 16 / 9; background: #000 }
+.g-trailer-close { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; color: var(--ink); background: #000000a8; box-shadow: 0 0 0 1px var(--line-2) inset }
+.g-trailer-close:hover { box-shadow: 0 0 0 1px var(--light) inset }
+
+/* Bento of features */
+.g-bento { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(240px, 20vw, 420px); grid-auto-flow: dense; gap: 18px }
+.g-feature { display: flex; flex-direction: column; justify-content: flex-end; min-height: 0 }
+.g-feature--hero { grid-column: span 2; grid-row: span 2 }
+.g-feature--tall { grid-row: span 2 }
+.g-feature--wide { grid-column: span 2 }
+.g-feature-media { position: absolute; inset: 0; overflow: hidden }
+.g-feature-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease) }
+.g-feature-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 38%, color-mix(in srgb, var(--bg) 92%, transparent)) }
+.g-feature--hero .g-feature-media::after { background: linear-gradient(180deg, transparent 52%, color-mix(in srgb, var(--bg) 94%, transparent)), linear-gradient(110deg, color-mix(in srgb, var(--bg) 40%, transparent), transparent 40%) }
+.g-feature:hover .g-feature-media img { transform: scale(1.06) }
+.g-feature--fire .g-feature-media img { object-position: 50% 30% }
+.g-feature--night .g-feature-media img { object-position: 46% 30% }
+.g-feature-copy { position: relative; z-index: 4; padding: 22px 24px 24px }
+.g-feature h3 { font: 800 clamp(21px, 1.6vw, 30px)/1.06 var(--display); letter-spacing: -.025em; text-shadow: 0 2px 22px #000b }
+.g-feature--hero h3 { font-size: clamp(30px, 3.1vw, 60px); letter-spacing: -.04em }
+.g-feature p { margin-top: 8px; font-size: 15px; line-height: 1.6; color: var(--ink-2); max-width: 44ch; text-shadow: 0 1px 14px #000c }
+/* Overlays in the site's own type: the call the game makes, and the Fire God multiplier */
+.g-feature-mark { position: absolute; z-index: 4; top: clamp(18px, 2vw, 30px); left: clamp(20px, 2vw, 30px); font: 800 clamp(46px, 5.4vw, 116px)/.86 var(--display); letter-spacing: -.045em; color: transparent; background: linear-gradient(180deg, #fff7da, var(--gold) 46%, #d9731f); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 8px 26px #000d) drop-shadow(0 0 34px #f6c45355); transform: rotate(-4deg); transform-origin: left top; pointer-events: none }
+.g-feature--fire .g-feature-mark { font-size: clamp(64px, 6.6vw, 150px); background-image: linear-gradient(180deg, #fff3c0, #ffb12e 42%, #ff4a1a); filter: drop-shadow(0 8px 26px #000d) drop-shadow(0 0 40px #ff7a1a77) }
+/* Twelve rare woods, set in type */
+.g-feature--woods { background: radial-gradient(circle at 16% 18%, #ff5a1f30, transparent 46%), radial-gradient(circle at 86% 26%, #63d2ff2a, transparent 46%), radial-gradient(circle at 62% 96%, #8dff4a22, transparent 50%), var(--surface) }
+.g-woods { position: absolute; inset: 0; display: grid; align-content: start; justify-items: start; gap: 14px; padding: clamp(18px, 2vw, 30px) clamp(20px, 2vw, 30px) }
+.g-woods strong { font: 800 clamp(84px, 7.4vw, 170px)/.8 var(--display); letter-spacing: -.07em; padding-right: .06em; color: transparent; background: linear-gradient(100deg, #ff6b5a, #ffc15a 30%, #a9ff5a 55%, #63d2ff 78%, #c18bff); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 0 30px #ffffff1c) }
+.g-woods ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px }
+.g-wood { padding: 6px 11px; border-radius: 999px; font: 800 10.5px/1 var(--sans); letter-spacing: .13em; text-transform: uppercase; color: #0b0b0e }
+.g-wood--rainbow { background: linear-gradient(90deg, #ff7a7a, #ffd95a, #7bff9b, #7bcbff, #c88bff) }
+.g-wood--lava { background: linear-gradient(90deg, #ff4a1a, #ffb12e) }
+.g-wood--diamond { background: linear-gradient(90deg, #d8f7ff, #63d2ff) }
+.g-wood--toxic { background: linear-gradient(90deg, #8dff4a, #e1ff4a) }
+.g-wood--more { color: var(--ink-2); background: #ffffff10; box-shadow: 0 0 0 1px var(--line-2) inset }
+.g-feature--woods p { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap }
+
+/* Clips */
+/* Clip reel: full-bleed, snapping, the middle clip plays */
+.g-clips { overflow: clip }
+.g-reel { position: relative }
+.g-reel-controls { position: absolute; right: 0; top: -94px; display: flex; gap: 10px }
+.g-reel-controls button { width: 56px; height: 56px; display: grid; place-items: center; border: 0; border-radius: 50%; color: var(--ink); background: #ffffff0a; box-shadow: 0 0 0 1px var(--line-2) inset; transition: background-color .25s, box-shadow .25s, color .25s }
+.g-reel-controls button:hover { color: var(--light-ink); background: var(--light); box-shadow: 0 14px 40px -16px var(--light) }
+.g-reel-track { list-style: none; margin: 0 calc(-1 * var(--pad)); padding: 10px var(--pad) 30px; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none; overscroll-behavior-x: contain }
+.g-reel-track::-webkit-scrollbar { display: none }
+.g-reel-track .g-clip { flex: 0 0 clamp(220px, 21vw, 360px); scroll-snap-align: center; transition: transform .6s var(--ease), box-shadow .5s, opacity .5s; opacity: .62 }
+.g-reel-track .g-clip.is-playing { opacity: 1; transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.04); box-shadow: 0 0 0 1px var(--light) inset, 0 40px 90px -40px var(--light) }
+.g-reel-track .g-clip:hover { opacity: 1 }
+.g-clip { border-radius: 22px }
+.g-clip-button { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; padding: 0; border: 0; background: #000; color: var(--ink); text-align: left; overflow: hidden; border-radius: inherit }
+.g-clip-button img, .g-clip-button video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover }
+.g-clip-button video { opacity: 0; transition: opacity .5s }
+.g-clip.is-playing .g-clip-button video { opacity: 1 }
+.g-clip-button::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #050506e6, transparent 45%); pointer-events: none }
+.g-clip-play { position: absolute; top: 14px; right: 14px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: var(--light-ink); background: var(--light); box-shadow: 0 8px 24px -8px var(--light) }
+.g-clip-bars { display: flex; align-items: flex-end; gap: 3px; height: 16px }
+.g-clip-bars i { width: 3px; background: currentColor; border-radius: 2px; animation: g-bars .9s ease-in-out infinite }
+.g-clip-bars i:nth-child(2) { animation-delay: .15s }
+.g-clip-bars i:nth-child(3) { animation-delay: .3s }
+@keyframes g-bars { 0%, 100% { height: 30% } 50% { height: 100% } }
+.g-clip-title { position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 2; font: 800 17px/1.1 var(--display); letter-spacing: -.015em }
+.g-clip-button:focus-visible { outline: 2px solid var(--light); outline-offset: 3px }
+
+/* Drops timeline */
+.g-timeline { position: relative; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px }
+.g-timeline::before { content: ''; position: absolute; left: 0; right: 0; top: 30px; height: 1px; background: linear-gradient(90deg, #7ddc5a, var(--light) 25%, color-mix(in srgb, var(--light) 20%, transparent)); box-shadow: 0 0 12px var(--light) }
+.g-timeline > li { position: relative; z-index: 1 }
+.g-timeline .ox-drop-name { letter-spacing: .08em }
+.g-timeline .ox-drop-clock { font-size: 17px }
+.g-launch { display: grid; gap: 6px; padding: 16px 18px; border-radius: 18px; background: #0d170b; box-shadow: 0 0 0 1px #7ddc5a88 inset }
+.g-launch .ox-drop-name { color: #9ee07e }
+.g-launch-state { display: inline-flex; align-items: center; gap: 8px; font: 800 20px/1.1 var(--display); color: #c9f5b4 }
+.g-launch time { font-size: 12px; color: var(--ink-3) }
+.g-roadmap-note { margin-top: 22px; text-align: center; font-size: 13px; color: var(--ink-3) }
+
+/* In development */
+.g-lineup { border-top: 1px solid var(--line) }
+.g-lineup-head { padding-bottom: 0 }
+.g-lineup-head .ox-section-head { margin-bottom: clamp(40px, 5vw, 64px) }
+
+/* Press */
+.g-press-card { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(30px, 5vw, 80px); padding: clamp(36px, 5vw, 72px); border-radius: 34px; background: radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--light) 16%, transparent), transparent 50%), var(--surface) }
+.g-press-star { width: clamp(120px, 14vw, 210px); height: auto; filter: drop-shadow(0 0 40px #f6c45380) }
+.g-press-card .ox-title { margin-top: 14px }
+.g-press-card .ox-lede { margin-top: 16px; max-width: 54ch }
+.g-press-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px }
+
+@media (min-width: 2000px) {
+  .g-logo { width: min(100%, 900px) }
+  .g-tagline { font-size: clamp(52px, 2.8vw, 84px) }
+  .g-pitch { font-size: 21px }
+  .g-hero-copy { max-width: 980px }
+  .g-hero-drops { width: 380px }
+  .g-feature p { font-size: 17px }
+  .g-timeline .ox-drop-clock { font-size: 22px }
+}
+@media (max-width: 1180px) {
+  .g-hero { grid-template-columns: 1fr; padding-bottom: 100px }
+  .g-hero-drops { width: auto; grid-template-columns: repeat(2, minmax(0, 280px)) }
+  .g-hero { grid-template-columns: minmax(0, 1fr) }
+  .g-timeline { grid-template-columns: repeat(3, minmax(0, 1fr)) }
+  .g-timeline::before { display: none }
+  .g-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(250px, 31vw, 360px) }
+}
+@media (max-width: 900px) {
+  .g-press-card { grid-template-columns: 1fr; justify-items: center; text-align: center }
+  .g-press-actions { justify-content: center }
+}
+@media (max-width: 700px) {
+  .g-hero { min-height: 0; padding: calc(var(--shell-header) + 230px) var(--h-gutter) 96px; align-items: start }
+  .g-hero-video { bottom: auto; height: 66% }
+  .g-hero-shade { background: linear-gradient(180deg, #05050699 0%, #05050622 16%, #050506cc 44%, var(--bg) 66%) }
+  .g-hero-video .ox-video-toggle { top: calc(var(--shell-header) + 10px); right: 12px }
+  .g-tagline { font-size: 32px }
+  .g-pitch { font-size: 16px }
+  .g-actions { flex-direction: column; align-items: stretch }
+  .g-actions .ox-button { width: 100% }
+  .g-hero-drops { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px }
+  .g-hero-drops .ox-drop-sec { display: none }
+  .g-hero-drops .ox-drop { padding: 13px 14px }
+  .g-hero-drops .ox-drop-clock { font-size: 17px }
+  .g-features, .g-clips, .g-roadmap, .g-press { padding-inline: 12px }
+  .g-bento { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 12px }
+  .g-feature { grid-column: auto; grid-row: auto; aspect-ratio: 4 / 3.5 }
+  .g-feature--tall { aspect-ratio: 3 / 4 }
+  .g-feature--woods { aspect-ratio: auto; min-height: 290px }
+  .g-features .ox-section-head, .g-clips .ox-section-head { padding-inline: 8px }
+  .g-reel-controls { position: static; justify-content: flex-end; margin-bottom: 14px }
+  .g-reel-track .g-clip { flex-basis: 64vw }
+  .g-timeline { grid-template-columns: 1fr; gap: 10px }
+  .g-press-actions { flex-direction: column; align-items: stretch; width: 100% }
+}
+@media (max-width: 380px) { .g-hero-drops { grid-template-columns: 1fr } }

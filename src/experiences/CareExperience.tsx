@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, DeviceMobile, Monitor, Television } from '@phosphor-icons/react'
 import { elderviceWebsite, media } from '../content'
 import { ContactPanel } from '../components/ContactPanel'
+import { LightField } from '../components/LightField'
 import { careCopy } from './care-copy'
 import type { CareDevice, CareLocale } from './care-copy'
 import { CareDeviceTask } from './CareDeviceTask'
@@ -10,6 +11,7 @@ import { advanceCareTask, initialCareTask } from './care-task-logic'
 import { emptyCareGuide } from './care-guide-render'
 import type { CareGuideDraft } from './care-guide-render'
 import './care.css'
+import './care-system.css'
 
 const devices: { id: CareDevice; Icon: typeof DeviceMobile }[] = [
   { id: 'phone', Icon: DeviceMobile }, { id: 'computer', Icon: Monitor }, { id: 'television', Icon: Television },
@@ -72,21 +74,24 @@ export default function CareExperience() {
   const status = feedback === 'wrongStep' ? t.wrongStep : t.status[feedback as keyof typeof t.status] || ''
 
   return <div className="care-experience" lang={locale}>
-    <section className="c-opening" id="eldervice" aria-labelledby="care-title">
-      <figure className="c-opening-scene"><img src={media('care-world.webp')} alt={t.openingAlt} width="1672" height="941" fetchPriority="high" /><figcaption>{t.illustration}</figcaption></figure>
-      <div className="c-opening-copy">
+    <section className="ct-hero" id="eldervice" aria-labelledby="care-title">
+      <div className="ox-scene"><LightField tone="jade" calm focus={[0.62, 0.3]} /></div>
+      <div className="ct-hero-copy">
         <div className="c-language" role="group" aria-label={t.language}><span>{t.language}</span><button type="button" lang="en" aria-pressed={locale === 'en'} onClick={() => changeLanguage('en')}>English</button><button type="button" lang="bg" aria-pressed={locale === 'bg'} onClick={() => changeLanguage('bg')}>Български</button></div>
-        <p className="c-kicker">{t.openingKicker}</p>
-        <h1 id="care-title">{t.title[0]}<br />{t.title[1]}<br /><em>{t.title[2]}</em></h1>
-        <p className="c-opening-description">{t.opening}</p>
-        <a className="c-primary-link" href="#a-visit">{t.explore} <ArrowDown size={19} aria-hidden="true" /></a>
-        <a className="c-website-link" href={elderviceWebsite.href} target="_blank" rel="noopener noreferrer">{locale === 'bg' ? 'Посетете сайта на Eldervice' : 'Visit the Eldervice website'}<ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only">{locale === 'bg' ? ' (отваря нов раздел)' : ' (opens in a new tab)'}</span></a>{elderviceWebsite.requiresSignIn && <p className="c-website-access">{locale === 'bg' ? 'Частен преглед · необходим е достъп' : 'Private preview · sign-in required'}</p>}
-        <p className="c-pilot"><span aria-hidden="true" />{t.pilot}</p>
+        <p className="ox-kicker">Oxyfel Care · {t.openingKicker}</p>
+        <h1 id="care-title" className="ct-title"><span className="ox-line"><span>{t.title[0]}</span></span>{' '}<span className="ox-line"><span>{t.title[1]}</span></span>{' '}<span className="ox-line"><span className="ox-glow">{t.title[2]}</span></span></h1>
+        <p className="ox-lede ct-lede">{t.opening}</p>
+        <div className="ct-actions">
+          <a className="ox-button ox-button--light ox-button--big" href="#a-visit" data-magnetic>{t.explore} <ArrowDown size={19} aria-hidden="true" /></a>
+          <a className="ox-button ox-button--ghost ox-button--big" href="#care-contact" data-magnetic>{locale === 'bg' ? 'Попитайте за помощ' : 'Ask for help'} <ArrowRight size={19} aria-hidden="true" /></a>
+        </div>
+        <div className="ct-meta"><a className="c-website-link" href={elderviceWebsite.href} target="_blank" rel="noopener noreferrer">{locale === 'bg' ? 'Посетете сайта на Eldervice' : 'Visit the Eldervice website'}<ArrowUpRight size={18} aria-hidden="true" /><span className="sr-only">{locale === 'bg' ? ' (отваря нов раздел)' : ' (opens in a new tab)'}</span></a><p className="c-pilot"><span aria-hidden="true" />{t.pilot}</p></div>
       </div>
+      <figure className="ct-hero-art ox-card" data-tilt><img src={media('care-world-1280.webp')} srcSet={`${media('care-world-640.webp')} 640w, ${media('care-world-1280.webp')} 1280w`} sizes="(max-width: 1000px) 100vw, 48vw" alt={t.openingAlt} width="1280" height="720" fetchPriority="high" /><figcaption>{t.illustration}</figcaption></figure>
     </section>
 
-    <section className="c-visit c-width" id="a-visit" aria-labelledby="visit-title">
-      <div className="c-section-intro"><p className="c-kicker">{t.visitKicker}</p><h2 id="visit-title">{t.visitTitle[0]}<br /><em>{t.visitTitle[1]}</em></h2><p>{t.visitBody}</p></div>
+    <section className="c-visit c-width" id="a-visit" aria-labelledby="visit-title" data-chapter={locale === 'bg' ? 'Посещение' : 'A visit'}>
+      <div className="c-section-intro"><p className="c-kicker"><span className="ox-num">01</span>{t.visitKicker}</p><h2 id="visit-title">{t.visitTitle[0]}<br /><em>{t.visitTitle[1]}</em></h2><p>{t.visitBody}</p></div>
       <div className="c-device-choices" role="group" aria-label={t.chooseDevice}>{devices.map(item => <button key={item.id} type="button" aria-pressed={device === item.id} onClick={() => chooseDevice(item.id)}><item.Icon size={22} aria-hidden="true" />{t.devices[item.id].label}</button>)}</div>
 
       <div className={'c-visit-demo c-depth-demo c-depth-stage-' + stage}>
@@ -102,12 +107,12 @@ export default function CareExperience() {
       </div>
     </section>
 
-    <section className="c-guide-story" aria-labelledby="guide-tools-title">
+    <section className="c-guide-story" aria-labelledby="guide-tools-title" data-chapter={locale === 'bg' ? 'Ръководства' : 'Guides'}>
       <figure className="c-together-scene"><img src={media('care-together.webp')} alt={t.togetherAlt} width="1672" height="941" loading="lazy" decoding="async" /><figcaption>{t.togetherCaption}</figcaption></figure>
-      <div className="c-guide-story-copy"><p className="c-kicker">{t.guideKicker}</p><h2 id="guide-tools-title">{t.guideStoryTitle[0]}<br /><em>{t.guideStoryTitle[1]}</em></h2><p>{t.guideStory}</p><p>{t.guideToolBody}</p><a className="c-next-step" href="#a-visit" onClick={() => chooseStage(2)}>{t.openWorkbench}<ArrowRight size={20} aria-hidden="true" /></a></div>
+      <div className="c-guide-story-copy"><p className="c-kicker"><span className="ox-num">02</span>{t.guideKicker}</p><h2 id="guide-tools-title">{t.guideStoryTitle[0]}<br /><em>{t.guideStoryTitle[1]}</em></h2><p>{t.guideStory}</p><p>{t.guideToolBody}</p><a className="c-next-step" href="#a-visit" onClick={() => chooseStage(2)}>{t.openWorkbench}<ArrowRight size={20} aria-hidden="true" /></a></div>
     </section>
 
-    <section className="c-care-boundaries c-width" aria-labelledby="care-founder-title"><div><p className="c-kicker">{t.founder}</p><h2 id="care-founder-title">{t.boundariesTitle}</h2><p>{t.founderBody}</p></div><div><p>{t.boundaries}</p><p>{t.privacy}</p></div></section>
-    <section className="c-inquiry" id="care-contact" aria-label={t.contactKicker}><ContactPanel context="care" locale={locale} /><span className="c-inquiry-mark" aria-hidden="true">Eldervice</span></section>
+    <section className="c-care-boundaries c-width" aria-labelledby="care-founder-title" data-chapter={locale === 'bg' ? 'Кой помага' : 'Who helps'}><div><p className="c-kicker"><span className="ox-num">03</span>{t.founder}</p><h2 id="care-founder-title">{t.boundariesTitle}</h2><p>{t.founderBody}</p></div><div><p>{t.boundaries}</p><p>{t.privacy}</p></div></section>
+    <section className="c-inquiry" id="care-contact" aria-label={t.contactKicker} data-chapter={locale === 'bg' ? 'Контакт' : 'Ask for help'}><ContactPanel context="care" locale={locale} /><span className="c-inquiry-mark" aria-hidden="true">Eldervice</span></section>
   </div>
 }

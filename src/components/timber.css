@@ -1,0 +1,88 @@
+/* The TIMBER! challenge. */
+.tc { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); gap: 18px; align-items: stretch }
+.tc-board { position: relative; display: grid; grid-template-rows: auto 1fr; min-height: 560px; border-radius: 30px; background: radial-gradient(ellipse 60% 55% at 50% 62%, color-mix(in srgb, var(--light) 22%, transparent), transparent 70%), linear-gradient(180deg, #0b1410, #070707 70%); box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 26%, transparent) inset, 0 50px 120px -60px var(--light); user-select: none; -webkit-user-select: none }
+.tc-hud { position: relative; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 22px 26px 0 }
+.tc-stat { display: grid; justify-items: center; min-width: 80px }
+.tc-stat small, .tc-timer small { font: 700 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3) }
+.tc-stat b { font: 800 44px/1.1 var(--display); letter-spacing: -.04em; color: var(--ink) }
+.tc-timer { position: relative; display: grid; place-items: center; width: 96px; height: 96px }
+.tc-timer svg { position: absolute; inset: 0; transform: rotate(-90deg) }
+.tc-timer circle { fill: none; stroke: #ffffff14; stroke-width: 6 }
+.tc-timer .tc-timer-left { stroke: var(--light); stroke-linecap: round; filter: drop-shadow(0 0 6px var(--light)) }
+.tc-timer b { font: 800 26px/1 var(--display); font-variant-numeric: tabular-nums; margin-top: 8px }
+.tc-timer small { margin-top: -18px; font-size: 9px }
+.tc--ready .tc-hud { opacity: .5 }
+.tc-field { position: relative; display: grid; place-items: end center; padding-bottom: 46px; overflow: hidden; border-radius: 0 0 30px 30px }
+.tc-ground { position: absolute; left: 10%; right: 10%; bottom: 30px; height: 46px; border-radius: 50%; background: radial-gradient(closest-side, #2d6b2a, #1a3a18 70%, transparent) }
+.tc-tree { position: relative; z-index: 2; width: 220px; padding: 0; border: 0; background: none; cursor: crosshair; transform-origin: 50% 96% }
+.tc-tree:focus-visible { outline: 2px solid var(--light); outline-offset: 6px; border-radius: 20px }
+.tc-tree:disabled { cursor: default }
+.tc-tree-art { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 24px #0009) }
+.tc-tree--rare .tc-canopy { fill: #f7c85a }
+.tc-tree--rare .tc-tree-art { filter: drop-shadow(0 0 26px #f6c453) drop-shadow(0 18px 24px #0009) }
+.tc-tree--live.tc-tree--rare::after { content: ''; position: absolute; inset: -10% 0 20%; background: radial-gradient(closest-side, #ffe7a066, transparent); animation: tc-glow 1.2s ease-in-out infinite; pointer-events: none }
+@keyframes tc-glow { 50% { opacity: .35 } }
+.tc-grow { display: block; animation: tc-grow .45s cubic-bezier(.2, 1.4, .4, 1) backwards; transform-origin: 50% 100% }
+@keyframes tc-grow { from { transform: scale(.2); opacity: 0 } }
+.tc-shake { display: block; animation: tc-shake .28s ease }
+@keyframes tc-shake { 25% { transform: translateX(-7px) rotate(-2.5deg) } 60% { transform: translateX(5px) rotate(1.8deg) } }
+.tc-tree--falling { position: absolute; bottom: 46px; left: 50%; margin-left: -110px; z-index: 1; pointer-events: none; animation: tc-fall .9s cubic-bezier(.55, 0, .9, .4) forwards }
+@keyframes tc-fall { to { transform: rotate(88deg); opacity: 0 } }
+.tc-timber { position: absolute; z-index: 5; left: 50%; top: 20%; transform: translateX(-50%); font: 800 clamp(30px, 4vw, 54px)/1 var(--display); letter-spacing: -.03em; color: #fff6dc; text-shadow: 0 4px 0 #8a4a12, 0 0 30px var(--light); white-space: nowrap; pointer-events: none; animation: tc-pop .9s cubic-bezier(.2, 1.4, .4, 1) forwards }
+@keyframes tc-pop { 0% { transform: translateX(-50%) scale(.4); opacity: 0 } 25% { transform: translateX(-50%) scale(1.15); opacity: 1 } 70% { opacity: 1 } 100% { transform: translateX(-50%) translateY(-30px) scale(1); opacity: 0 } }
+.tc-axe { position: absolute; z-index: 3; left: calc(50% + 70px); bottom: 120px; width: 96px; pointer-events: none; transform-origin: 30% 90% }
+.tc-axe svg { display: block; width: 100% }
+.tc-axe--swing { animation: tc-swing .26s ease }
+@keyframes tc-swing { 40% { transform: rotate(-38deg) translate(-12px, 6px) } }
+.tc-chips { position: absolute; z-index: 4; left: 50%; bottom: 120px; pointer-events: none }
+.tc-chips i { position: absolute; width: 10px; height: 6px; border-radius: 2px; background: #c98b4a; animation: tc-chip .75s cubic-bezier(.2, .7, .4, 1) forwards }
+.tc-chips i.is-gold { background: #ffd76a; box-shadow: 0 0 8px #ffd76a }
+@keyframes tc-chip { to { transform: translate(var(--dx), calc(var(--dy) + 140px)) rotate(var(--spin)); opacity: 0 } }
+.tc-hits { position: absolute; z-index: 4; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px }
+.tc-hits i { width: 26px; height: 6px; border-radius: 3px; background: #ffffff1f; transition: background-color .15s }
+.tc-hits i.is-on { background: var(--light); box-shadow: 0 0 10px var(--light) }
+.tc-start { position: absolute; z-index: 5; top: 18%; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; font-weight: 800; color: var(--light-ink); background: var(--light); box-shadow: 0 14px 40px -12px var(--light); pointer-events: none; animation: tc-bob 1.6s ease-in-out infinite }
+@keyframes tc-bob { 50% { transform: translateX(-50%) translateY(-6px) } }
+.tc-result { position: absolute; z-index: 6; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 30px; text-align: center; border-radius: inherit; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(10px); animation: tc-in .5s var(--ease) backwards }
+@keyframes tc-in { from { opacity: 0; transform: scale(.96) } }
+.tc-result-rank { display: inline-flex; align-items: center; gap: 10px; font: 800 clamp(34px, 4vw, 58px)/1 var(--display); letter-spacing: -.04em; background: var(--light-text); -webkit-background-clip: text; background-clip: text; color: transparent }
+.tc-result-rank svg { color: var(--light) }
+.tc-result-score { font-size: 20px; color: var(--ink-2) }
+.tc-result-score b { font: 800 30px var(--display); color: var(--ink) }
+.tc-result-friend { font-weight: 800; color: var(--light-hot) }
+.tc-result-real { font-size: 15px; color: var(--ink-3) }
+.tc-result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 16px }
+.tc-noscript { position: absolute; inset: auto 20px 20px; text-align: center; color: var(--ink-2) }
+.tc-side { display: grid; align-content: start; gap: 16px; padding: 28px; border-radius: 30px; background: var(--surface); box-shadow: 0 0 0 1px var(--line) inset }
+.tc-friend { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 16px; font-weight: 700; color: var(--light-ink); background: var(--light) }
+.tc-best { font-size: 16px; color: var(--ink-2) }
+.tc-best b { font: 800 28px var(--display); color: var(--ink) }
+.tc-rules { list-style: none; padding: 16px 0 0; margin: 0; display: grid; gap: 12px; border-top: 1px solid var(--line) }
+.tc-rules li { font-size: 16px; color: var(--ink-2) }
+.tc-rules b { color: var(--ink) }
+.tc-rules kbd { padding: 2px 8px; border-radius: 6px; font: 700 13px var(--sans); color: var(--ink); background: #ffffff14; box-shadow: 0 2px 0 #ffffff1c }
+
+@media (min-width: 2000px) {
+  .tc-board { min-height: 780px }
+  .tc-tree { width: 300px }
+  .tc-tree--falling { margin-left: -150px }
+  .tc-axe { left: calc(50% + 100px); width: 130px; bottom: 170px }
+  .tc-chips { bottom: 170px }
+  .tc-stat b { font-size: 60px }
+  .tc-rules li, .tc-best { font-size: 19px }
+}
+@media (max-width: 900px) {
+  .tc { grid-template-columns: 1fr }
+  .tc-board { min-height: 500px }
+}
+@media (max-width: 480px) {
+  .tc-tree { width: 180px }
+  .tc-tree--falling { margin-left: -90px }
+  .tc-axe { left: calc(50% + 50px); width: 76px }
+  .tc-stat b { font-size: 36px }
+  .tc-result-actions { flex-direction: column; align-items: stretch; width: 100% }
+  .tc-result-actions .ox-share, .tc-result-actions .ox-share-button { width: 100% }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tc-chips, .tc-timber, .tc-tree--falling { display: none }
+}

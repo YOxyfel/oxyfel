@@ -1,0 +1,70 @@
+/* Oxyfel Care in the shared system: the jade light, calmer motion and larger, high-contrast text.
+   The practice panel (device simulations and guides) stays on bright paper on purpose:
+   it is where older visitors read and try things, so it keeps dark text on a light surface. */
+.theme-care .care-experience { --c-ink: var(--ink); --c-muted: var(--ink-2); color: var(--ink); background: var(--bg); font-family: var(--sans) }
+.theme-care .care-experience h1, .theme-care .care-experience h2, .theme-care .care-experience h3:not(.c-demo-story h3), .theme-care .care-experience h4 { font-family: var(--display); font-weight: 800; letter-spacing: -.04em }
+.theme-care .care-experience h2 em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spacing: -.015em; background: var(--light-text); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .05em }
+.theme-care .care-experience .c-kicker { font-size: 13px; font-weight: 700; letter-spacing: .22em; color: var(--light) }
+
+/* Hero */
+.ct-hero { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: clamp(30px, 5vw, 80px); min-height: max(760px, 100svh); padding: calc(var(--shell-header) + 50px) var(--pad) 90px }
+.ct-hero-copy { display: grid; justify-items: start; gap: 24px }
+.theme-care .care-experience .ct-title { display: grid; font: 800 clamp(34px, 5.2vw, 92px)/.94 var(--display); letter-spacing: -.05em }
+.ct-lede { max-width: 42ch; font-size: clamp(18px, 1.5vw, 21px); animation: ct-rise 1.2s var(--ease) .4s backwards }
+.ct-actions { display: flex; flex-wrap: wrap; gap: 12px; animation: ct-rise 1.2s var(--ease) .55s backwards }
+@keyframes ct-rise { from { opacity: 0; transform: translateY(24px) } }
+.ct-meta { display: grid; gap: 10px; justify-items: start }
+.theme-care .care-experience .c-website-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 700; color: var(--light); border-bottom: 1px solid color-mix(in srgb, var(--light) 50%, transparent) }
+.theme-care .care-experience .c-pilot { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2) }
+.theme-care .care-experience .c-pilot span { background: var(--light); box-shadow: 0 0 10px var(--light) }
+.theme-care .care-experience .c-language { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-3) }
+.theme-care .care-experience .c-language button { border-radius: 999px; border-color: var(--line-2); background: #ffffff08; color: var(--ink); font-weight: 600 }
+.theme-care .care-experience .c-language button[aria-pressed=true] { background: var(--light); border-color: var(--light); color: var(--light-ink) }
+.ct-hero-art { position: relative; margin: 0; border-radius: 30px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 30%, transparent) inset, 0 50px 120px -50px var(--light) }
+.ct-hero-art img { width: 100%; height: auto; aspect-ratio: 16 / 11; object-fit: cover; object-position: 62% 45% }
+.ct-hero-art figcaption { position: absolute; left: 16px; bottom: 16px; z-index: 4; padding: 7px 12px; border-radius: 999px; font-size: 12px; color: var(--ink); background: color-mix(in srgb, var(--bg) 70%, transparent) }
+
+/* A visit: intro on the dark page, the practice on bright paper */
+.theme-care .care-experience .c-section-intro > p:last-child { color: var(--ink-2); font-size: 18px }
+.theme-care .care-experience .c-device-choices button { border-radius: 999px; border-color: var(--line-2); color: var(--ink); background: #ffffff06; font-weight: 600; font-size: 16px }
+.theme-care .care-experience .c-device-choices button:hover { background: color-mix(in srgb, var(--light) 12%, transparent) }
+.theme-care .care-experience .c-device-choices button[aria-pressed=true] { background: var(--light); border-color: var(--light); color: var(--light-ink) }
+.theme-care .care-experience .c-visit-demo { --c-ink: #22392f; --c-muted: #4b5f52; color: #22392f; border-radius: 32px; background: linear-gradient(180deg, #f3f7ef, #e5eee1); box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 40%, transparent), 0 60px 140px -60px var(--light) }
+.theme-care .care-experience .c-visit-demo h3 { font-family: var(--display); font-weight: 800; letter-spacing: -.035em }
+.theme-care .care-experience .c-example-caption { color: #4b5f52 }
+.theme-care .care-experience .c-next-step { font-weight: 800 }
+.theme-care .care-experience .c-guide-story .c-next-step, .theme-care .care-experience .c-care-boundaries a { color: var(--light) }
+
+/* Guides and boundaries */
+.theme-care .care-experience .c-guide-story { background: var(--bg); border-block: 1px solid var(--line) }
+.theme-care .care-experience .c-together-scene { position: relative; overflow: hidden; border-radius: 0 32px 32px 0 }
+.theme-care .care-experience .c-together-scene figcaption { border-radius: 999px; background: color-mix(in srgb, var(--bg) 72%, transparent); color: var(--ink) }
+.theme-care .care-experience .c-guide-story-copy > p:not(.c-kicker) { color: var(--ink-2); font-size: 17px }
+.theme-care .care-experience .c-guide-principle { border-top-color: var(--line) }
+.theme-care .care-experience .c-guide-principle > span { font-family: var(--display); font-weight: 800; color: var(--light) }
+.theme-care .care-experience .c-care-boundaries p:not(.c-kicker) { color: var(--ink-2); font-size: 17px }
+
+/* Contact */
+.theme-care .care-experience .c-inquiry { background: radial-gradient(ellipse 60% 50% at 50% 0%, color-mix(in srgb, var(--light) 14%, transparent), transparent 70%), var(--bg); color: var(--ink) }
+.theme-care .care-experience .c-inquiry-mark { font-family: var(--display); font-weight: 800; letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--light) 45%, transparent) }
+
+@media (min-width: 2000px) {
+  .theme-care .care-experience .ct-title { font-size: clamp(84px, 3.4vw, 120px) }
+  .ct-lede { font-size: 24px }
+  .theme-care .care-experience .c-section-intro > p:last-child, .theme-care .care-experience .c-guide-story-copy > p:not(.c-kicker), .theme-care .care-experience .c-care-boundaries p:not(.c-kicker) { font-size: 20px }
+  .theme-care .care-experience .c-guide-story { max-width: var(--max); margin-inline: auto; border-radius: 34px; overflow: hidden; border: 1px solid var(--line) }
+}
+@media (max-width: 1000px) {
+  .ct-hero { grid-template-columns: 1fr; min-height: 0; padding-bottom: 70px }
+  .ct-hero-art { order: -1; margin-top: 10px }
+  .theme-care .care-experience .c-together-scene { border-radius: 0 }
+}
+@media (max-width: 700px) {
+  .theme-care .care-experience .ct-title { font-size: clamp(34px, 9.4vw, 60px) }
+  .theme-care .care-experience .c-section-intro h2, .theme-care .care-experience .c-guide-story-copy h2 { font-size: clamp(32px, 9.6vw, 54px) }
+  .theme-care .care-experience .c-care-boundaries h2 { font-size: clamp(28px, 8.2vw, 46px) }
+  .theme-care .care-experience .c-care-boundaries > div { min-width: 0 }
+  .ct-actions { flex-direction: column; align-items: stretch; width: 100% }
+  .ct-actions .ox-button { width: 100% }
+  .theme-care .care-experience .c-visit-demo { border-radius: 24px }
+}

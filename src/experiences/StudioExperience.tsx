@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MouseEvent } from 'react'
-import { ArrowDown, ArrowRight, ArrowUpRight, ArrowsHorizontal, Asterisk, Check, Plus } from '@phosphor-icons/react'
+import { ArrowDown, ArrowRight, ArrowUpRight, ArrowsHorizontal, Asterisk, Browser, Check, CursorClick, Ear, GameController, Hammer, PencilRuler, Plus, RocketLaunch } from '@phosphor-icons/react'
 import { media } from '../content'
 import { ContactPanel } from '../components/ContactPanel'
+import { LightField } from '../components/LightField'
+import { Marquee } from '../components/Media'
 import './studio.css'
+import './studio-system.css'
 
 type CaseId = 'games' | 'websites' | 'interactive'
 const caseIds: CaseId[] = ['games', 'websites', 'interactive']
@@ -38,24 +41,24 @@ function WebsiteEvidence() {
   const [reveal, setReveal] = useState(70)
   const [mobile, setMobile] = useState(false)
   return <div className="s-evidence">
-    <div className="s-evidence-toolbar"><span>Oxyfel / a change in structure</span><div role="group" aria-label="Website preview format"><button type="button" aria-pressed={!mobile} onClick={() => setMobile(false)}>Desktop comparison</button><button type="button" aria-pressed={mobile} onClick={() => setMobile(true)}>Mobile result</button></div></div>
-    {mobile ? <figure className="s-mobile-proof"><img src={media('studio-hub-mobile.webp')} width="390" height="844" alt="Actual mobile hub capture: all three experience entrances are visible beneath the introduction." loading="lazy" /><figcaption><span>Same destinations.<br /><em>A different rhythm.</em></span><p>Three compact entrances keep every direction visible on arrival. Navigation stays available as you explore.</p><small>Current hub · 6 September 2026</small></figcaption></figure> : <>
+    <div className="s-evidence-toolbar"><span>Oxyfel / one system for three divisions</span><div role="group" aria-label="Website preview format"><button type="button" aria-pressed={!mobile} onClick={() => setMobile(false)}>Desktop comparison</button><button type="button" aria-pressed={mobile} onClick={() => setMobile(true)}>Mobile result</button></div></div>
+    {mobile ? <figure className="s-mobile-proof"><img src={media('studio-site-phone.webp')} width="390" height="844" alt="Phone capture of the new Oxyfel home: the star, the headline and the three division buttons on arrival." loading="lazy" /><figcaption><span>One star.<br /><em>Three lights.</em></span><p>All three divisions are one tap away on arrival, and the menu keeps every project close as you explore.</p><small>Oxyfel today · 6 November 2026</small></figcaption></figure> : <>
       <figure className="s-comparison">
         <div className="s-comparison-images">
-          <img className="s-compare-before" src={media('studio-oxyfel-previous.webp')} width="1600" height="1000" alt="Before: Oxyfel's earlier edition opened with a single Wuhen landscape and placed every kind of project in one page." loading="lazy" />
-          <div className="s-compare-after" style={{ clipPath: `inset(0 ${100 - reveal}% 0 0)` }}><img src={media('studio-hub-after.webp')} width="1440" height="1000" alt="After: the redesigned Oxyfel hub gives Worlds, Everyday, and Studio their own entrances." loading="lazy" /></div>
+          <img className="s-compare-before" src={media('studio-hub-after.webp')} width="1440" height="1000" alt="Before: the September hub gave each kind of work its own separate look." loading="lazy" />
+          <div className="s-compare-after" style={{ clipPath: `inset(0 ${100 - reveal}% 0 0)` }}><img src={media('studio-site-wide.webp')} width="1440" height="1000" alt="After: the new Oxyfel home, one star with three divisions in a single design system." loading="lazy" /></div>
           <div className="s-comparison-line" style={{ left: `${reveal}%` }} aria-hidden="true"><span><ArrowsHorizontal size={21} aria-hidden="true" /></span></div>
-          {reveal > 10 && <span className="s-compare-label s-label-after">Hub direction</span>}{reveal < 90 && <span className="s-compare-label s-label-before">Previous edition</span>}
+          {reveal > 10 && <span className="s-compare-label s-label-after">Oxyfel today</span>}{reveal < 90 && <span className="s-compare-label s-label-before">September hub</span>}
         </div>
         <figcaption>Two real website captures. The structure changed before the decoration did.</figcaption>
       </figure>
-      <div className="s-comparison-control"><label htmlFor="studio-reveal">Reveal the hub <output htmlFor="studio-reveal">{reveal}%</output></label><input id="studio-reveal" type="range" min="0" max="100" step="1" value={reveal} aria-valuetext={`${reveal}% of the hub direction revealed`} onChange={event => setReveal(Number(event.target.value))} /><div className="s-reveal-presets" role="group" aria-label="Comparison position"><button type="button" onClick={() => setReveal(0)}>Previous edition</button><button type="button" onClick={() => setReveal(50)}>Compare</button><button type="button" onClick={() => setReveal(100)}>Hub direction</button></div></div>
+      <div className="s-comparison-control"><label htmlFor="studio-reveal">Reveal today’s site <output htmlFor="studio-reveal">{reveal}%</output></label><input id="studio-reveal" type="range" min="0" max="100" step="1" value={reveal} aria-valuetext={`${reveal}% of today’s site revealed`} onChange={event => setReveal(Number(event.target.value))} /><div className="s-reveal-presets" role="group" aria-label="Comparison position"><button type="button" onClick={() => setReveal(0)}>September hub</button><button type="button" onClick={() => setReveal(50)}>Compare</button><button type="button" onClick={() => setReveal(100)}>Oxyfel today</button></div></div>
     </>}
-    <noscript><p className="s-static-links">Open the <a href={media('studio-oxyfel-previous.webp')}>previous edition</a>, <a href={media('studio-hub-after.webp')}>hub direction</a>, or <a href={media('studio-hub-mobile.webp')}>mobile capture</a> at full size.</p></noscript>
+    <noscript><p className="s-static-links">Open the <a href={media('studio-hub-after.webp')}>September hub</a>, <a href={media('studio-site-wide.webp')}>today’s site</a>, or <a href={media('studio-site-phone.webp')}>phone capture</a> at full size.</p></noscript>
     <Decisions id="websites" items={[
-      { title: 'One useful choice', body: 'The opening asks where you want to go: original games, everyday technology help, or creative development. The categories stay clear without putting every project into the same layout.' },
-      { title: 'A shared way home', body: 'Every experience keeps the Oxyfel entrance, project directory, and routes to the other parts of the studio. Different atmospheres remain part of one place.' },
-      { title: 'Depth by invitation', body: 'The first screen sets the direction. Detailed work, demonstrations, and practical next steps belong inside the relevant experience, where they can be useful.' },
+      { title: 'One star, three lights', body: 'The parent and its three divisions share one design system: the same type, surfaces and motion. A division only changes its light, gold for Games, ice for Studio and jade for Care, so everything reads as one company.' },
+      { title: 'A shared way home', body: 'Every page keeps the same header, division switcher and footer, so moving between games, client work and help at home never feels like leaving.' },
+      { title: 'Depth by invitation', body: 'The first screen sets the direction. Detailed work, demonstrations and practical next steps live inside the relevant division, where they can be useful.' },
     ]} />
   </div>
 }
@@ -96,6 +99,18 @@ const cases = {
   websites: { project: 'Oxyfel', status: 'Studio project', title: 'Give different ideas their own space.', problem: 'Games, technology help, and creative work were competing inside one long page.', role: 'Content structure, art direction, responsive interface design, and implementation.', result: 'A shared hub with three experiences, a complete directory, and paths into the work.', href: base, action: 'Explore the hub', Evidence: WebsiteEvidence },
   interactive: { project: 'Constellore', status: 'Browser practice available', title: 'Let a small action open a possibility.', problem: 'A word-combination game needs room for discovery and a reason to keep experimenting.', role: 'Game design and browser interaction development: the board, inventory, discovery, and feedback.', result: 'A playable word puzzle with a visible target, persistent discoveries, and room to try another route.', href: 'https://yoxyfel.github.io/constellore/play/', action: 'Open browser practice', Evidence: InteractiveEvidence },
 }
+
+const services = [
+  { Icon: Browser, title: 'Websites', body: 'Fast, accessible websites that explain what you do and help people act on it.', points: ['Structure before decoration', 'Works on every screen, phone to ultra-wide', 'Readable without JavaScript, kind to search'] },
+  { Icon: GameController, title: 'Game systems', body: 'Gameplay systems for Unreal Engine and Roblox: the rules, the feel and the parts players never see.', points: ['Unreal Engine gameplay', 'Roblox experiences and tools', 'Tested, tuned and readable systems'] },
+  { Icon: CursorClick, title: 'Interactive work', body: 'Browser experiences that teach, explain or simply delight, built to be understood at a glance.', points: ['Interactive explainers and tools', 'Motion that serves the idea', 'Touch, mouse and keyboard'] },
+]
+const process = [
+  { Icon: Ear, step: '01', title: 'Listen', body: 'Who it is for, what it has to do, and what you already have.' },
+  { Icon: PencilRuler, step: '02', title: 'Shape', body: 'The structure and the key decisions, before anything looks finished.' },
+  { Icon: Hammer, step: '03', title: 'Build', body: 'Working versions early, checked on real screens with real people.' },
+  { Icon: RocketLaunch, step: '04', title: 'Launch', body: 'A careful release, a clear handover and the first round of improvements.' },
+]
 
 export default function StudioExperience() {
   const [active, setActive] = useState<CaseId>('games')
@@ -142,22 +157,41 @@ export default function StudioExperience() {
   }
   return <div className={`studio-experience${enhanced ? ' s-enhanced' : ''}`}>
     <noscript><style>{'.studio-experience .s-decision-controls,.studio-experience .s-comparison-control,.studio-experience .s-evidence-toolbar>div{display:none}'}</style></noscript>
-    <section className="s-opening" aria-labelledby="s-title">
-      <div className="s-opening-top"><p className="s-kicker">The creative studio</p><span>Games / Websites / Interaction</span></div>
-      <div className="s-opening-grid">
-        <div className="s-opening-copy"><h1 id="s-title">From idea<br />to <em>in use.</em></h1><p className="s-opening-description">Design it. Build it.<br />Make it work for someone.</p><p className="s-opening-note">I’m Yane. I develop games, websites, and interactive tools. Open a piece of work to see the thinking and the working result.</p><a className="s-link s-opening-link" href="#studio-workbench">Inside the work <ArrowDown size={20} aria-hidden="true" /></a><a className="s-opening-inquiry" href="#start-a-project">Have a project in mind? <ArrowUpRight size={17} aria-hidden="true" /></a></div>
-        <div className="s-artifact-board" aria-label="Actual work from the studio">
-          <div className="s-board-heading"><span>On the table</span><span>01 / 02 / 03</span></div>
-          <a className="s-artifact s-artifact-model" href="#case-games" onClick={event => selectCase(event, 'games')}><img src={media('studio-mosquitto-model.webp')} width="1280" height="720" alt="Average Mosquitto model, rendered in Unreal Engine." fetchPriority="high" /><span><b>01 / Games</b><small>Model → engine</small><ArrowUpRight size={18} aria-hidden="true" /></span></a>
-          <a className="s-artifact s-artifact-website" href="#case-websites" onClick={event => selectCase(event, 'websites')}><img src={media('studio-hub-after.webp')} width="1440" height="1000" alt="The Oxyfel hub interface with its three entrances." /><span><b>02 / Websites</b><small>Structure → experience</small><ArrowUpRight size={18} aria-hidden="true" /></span></a>
-          <a className="s-artifact s-artifact-board-game" href="#case-interactive" onClick={event => selectCase(event, 'interactive')}><img src={media('studio-constellore-board.webp')} width="1440" height="900" alt="The Constellore word-combination interface." /><span><b>03 / Interactive</b><small>Action → discovery</small><ArrowUpRight size={18} aria-hidden="true" /></span></a>
-          <p className="s-board-caption">Actual interfaces and an in-engine model render.</p>
+    <section className="st-hero" aria-labelledby="s-title">
+      <div className="ox-scene"><LightField tone="ice" focus={[0.42, 0.04]} /></div>
+      <div className="st-hero-copy">
+        <p className="ox-kicker">Oxyfel Studio · For companies</p>
+        <h1 id="s-title" className="ox-display st-title"><span className="ox-line"><span>From idea</span></span>{' '}<span className="ox-line"><span className="ox-glow">to in use.</span></span></h1>
+        <p className="ox-lede st-lede">Websites, game systems and interactive work, designed and built to work for the people who use them.</p>
+        <div className="st-actions">
+          <a className="ox-button ox-button--light ox-button--big" href="#start-a-project" data-magnetic>Start a project <ArrowRight size={18} aria-hidden="true" /></a>
+          <a className="ox-button ox-button--ghost ox-button--big" href="#studio-workbench" data-magnetic>See the work <ArrowDown size={18} aria-hidden="true" /></a>
         </div>
+        <p className="st-note">An independent practice by Yane Zhekov. Open a piece of work to see the thinking and the working result.</p>
       </div>
-      <div className="s-opening-footer"><span>An independent practice by Yane Zhekov.</span><Asterisk size={24} weight="light" aria-hidden="true" /><span>Thinking and making, together.</span></div>
+      <div className="st-board" aria-label="Actual work from the studio">
+        <a className="st-artifact st-artifact--model ox-card" href="#case-games" onClick={event => selectCase(event, 'games')} data-spotlight data-tilt><img src={media('studio-mosquitto-model.webp')} width="1280" height="720" alt="Average Mosquitto model, rendered in Unreal Engine." fetchPriority="high" /><span><b>01 · Games</b><small>Model to engine</small><ArrowUpRight size={18} aria-hidden="true" /></span></a>
+        <a className="st-artifact st-artifact--website ox-card" href="#case-websites" onClick={event => selectCase(event, 'websites')} data-spotlight data-tilt><img src={media('studio-site-now.webp')} width="1440" height="900" alt="The new Oxyfel home page: the gold star above the headline One star, three lights." /><span><b>02 · Websites</b><small>Structure to experience</small><ArrowUpRight size={18} aria-hidden="true" /></span></a>
+        <a className="st-artifact st-artifact--interactive ox-card" href="#case-interactive" onClick={event => selectCase(event, 'interactive')} data-spotlight data-tilt><img src={media('studio-constellore-board.webp')} width="1440" height="900" alt="The Constellore word-combination interface." /><span><b>03 · Interactive</b><small>Action to discovery</small><ArrowUpRight size={18} aria-hidden="true" /></span></a>
+      </div>
     </section>
-    <section className="s-workbench" id="studio-workbench" aria-labelledby="s-workbench-title">
-      <header className="s-workbench-heading"><p className="s-kicker">Selected work / opened up</p><h2 id="s-workbench-title">The idea.<br /><em>The decisions.</em></h2><p>Real projects, with the process left visible.<br />Choose a case and look inside.</p></header>
+    <div className="st-marquee"><Marquee label="What Oxyfel Studio builds" items={['Websites', 'Game systems', 'Interactive work', 'Unreal Engine', 'Roblox', 'React', 'From idea to in use']} speed={42} /></div>
+    <section className="ox-section st-services" aria-labelledby="st-services-title" data-chapter="What we build">
+      <div className="ox-section-head" data-reveal>
+        <p className="ox-kicker"><span className="ox-num">01</span>What we build</p>
+        <h2 id="st-services-title" className="ox-title">Three kinds of work. <em>One standard.</em></h2>
+      </div>
+      <ul className="st-service-grid">
+        {services.map(({ Icon, title, body, points }) => <li key={title} className="st-service ox-card" data-spotlight data-tilt data-reveal>
+          <span className="st-service-icon"><Icon size={30} weight="duotone" aria-hidden="true" /></span>
+          <h3>{title}</h3>
+          <p>{body}</p>
+          <ul>{points.map(point => <li key={point}><Check size={16} weight="bold" aria-hidden="true" />{point}</li>)}</ul>
+        </li>)}
+      </ul>
+    </section>
+    <section className="s-workbench" id="studio-workbench" aria-labelledby="s-workbench-title" data-chapter="Selected work">
+      <header className="s-workbench-heading"><p className="s-kicker"><span className="ox-num">02</span>Selected work, opened up</p><h2 id="s-workbench-title">The idea.<br /><em>The decisions.</em></h2><p>Real projects, with the process left visible.<br />Choose a case and look inside.</p></header>
       <nav className="s-lenses" aria-label="Choose a studio case study">{caseIds.map((id, i) => <a key={id} href={`#case-${id}`} aria-current={active === id ? 'true' : undefined} onClick={event => selectCase(event, id)}><span className="s-lens-number">0{i + 1}</span><span>{caseTitles[id]}</span><ArrowDown size={20} aria-hidden="true" /></a>)}</nav>
       {caseIds.map((id, i) => {
         const item = cases[id]
@@ -171,12 +205,26 @@ export default function StudioExperience() {
         </article>
       })}
     </section>
-    <section className="s-profile" aria-labelledby="s-profile-title">
-      <div className="s-profile-heading"><p className="s-kicker">Behind the work</p><Asterisk size={54} weight="light" aria-hidden="true" /></div>
+    <section className="ox-section st-process" aria-labelledby="st-process-title" data-chapter="How it runs">
+      <div className="ox-section-head ox-section-head--center" data-reveal>
+        <p className="ox-kicker"><span className="ox-num">03</span>How a project runs</p>
+        <h2 id="st-process-title" className="ox-title">From the first call <em>to the launch.</em></h2>
+      </div>
+      <ol className="st-process-row">
+        {process.map(({ Icon, step, title, body }) => <li key={step} className="st-step ox-card" data-spotlight data-reveal>
+          <span className="st-step-top"><span className="st-step-number">{step}</span><Icon size={26} weight="duotone" aria-hidden="true" /></span>
+          <h3>{title}</h3>
+          <p>{body}</p>
+        </li>)}
+      </ol>
+      <div className="st-process-cta" data-reveal><a className="ox-button ox-button--light ox-button--big" href="#start-a-project" data-magnetic>Start a project <ArrowRight size={18} aria-hidden="true" /></a></div>
+    </section>
+    <section className="s-profile" aria-labelledby="s-profile-title" data-chapter="Behind the work">
+      <div className="s-profile-heading"><p className="s-kicker"><span className="ox-num">04</span>Behind the work</p><Asterisk size={54} weight="light" aria-hidden="true" /></div>
       <h2 id="s-profile-title">One maker.<br /><span>A wider practice.</span></h2>
       <div className="s-profile-body"><p className="s-profile-intro">I’m Yane Zhekov.<br />I work across<br /><em>design and development.</em></p><div className="s-profile-copy"><p>My work spans Unreal Engine gameplay, browser experiences, art, and sound. Oxyfel brings those projects together; my personal portfolio goes further into the individual disciplines and experiments.</p><p>For a new collaboration, the useful starting point is the person you are building for, the problem to solve, and what you already have.</p></div></div>
       <div className="s-project-doors"><a className="s-project-door" id="personal" href="https://v0-yanez.vercel.app/en" target="_blank" rel="noopener noreferrer"><div><span className="s-kicker">The personal portfolio</span><h3>Yane Zhekov</h3><p>UE5 development, interactive experiments, art & sound.</p></div><span className="s-door-arrow"><ArrowUpRight size={32} aria-hidden="true" /><span>Visit portfolio</span></span><span className="sr-only"> (opens in a new tab)</span></a><a className="s-project-door" id="oxyfel" href={base}><div><span className="s-kicker">The shared entrance</span><h3>Oxyfel</h3><p>Original games, everyday help, and the studio.</p></div><span className="s-door-arrow"><ArrowUpRight size={32} aria-hidden="true" /><span>Back to the hub</span></span></a></div>
     </section>
-    <section className="s-contact-section" id="start-a-project" aria-label="Discuss a project"><ContactPanel context="studio" /></section>
+    <section className="s-contact-section" id="start-a-project" aria-label="Discuss a project" data-chapter="Start a project"><ContactPanel context="studio" /></section>
   </div>
 }

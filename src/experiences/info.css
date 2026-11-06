@@ -1,0 +1,29 @@
+/* Privacy and 404 in the shared system: the gold light, quiet. */
+.info-page { position: relative; isolation: isolate; color: var(--ink); background: radial-gradient(ellipse 60% 45% at 50% 0%, color-mix(in srgb, var(--light) 18%, transparent), transparent 70%), var(--bg); padding: calc(var(--shell-header) + 80px) var(--pad) 120px }
+.info-kicker { display: inline-flex; align-items: center; gap: 12px; font: 700 12px/1.4 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--light) }
+.info-kicker::before { content: ''; width: 7px; height: 7px; background: currentColor; transform: rotate(45deg); box-shadow: 0 0 12px currentColor }
+.info-head { max-width: 900px; margin: 0 auto; padding-bottom: 44px; border-bottom: 1px solid var(--line) }
+.info-head h1 { margin-top: 18px; font: 800 clamp(40px, 8.6vw, 120px)/.88 var(--display); letter-spacing: -.06em; text-transform: uppercase; background: var(--light-text); -webkit-background-clip: text; background-clip: text; color: transparent }
+.info-intro { margin-top: 22px; font: italic 500 clamp(22px, 2.4vw, 30px)/1.35 var(--serif); color: var(--ink-2); max-width: 40ch }
+.info-updated { margin-top: 14px; font-size: 13px; color: var(--ink-3) }
+.info-body { max-width: 900px; margin: 0 auto }
+.info-body section { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 12px 40px; padding: 36px 0; border-bottom: 1px solid var(--line) }
+.info-body h2 { grid-row: span 3; font: 800 15px/1.4 var(--display); letter-spacing: .04em; text-transform: uppercase; color: var(--ink) }
+.info-body h2 span { color: var(--light); margin-right: 12px }
+.info-body p { font-size: 17px; line-height: 1.8; color: var(--ink-2) }
+.info-body a { color: var(--light); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere }
+.info-body a:hover { color: var(--light-hot) }
+.info-missing { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center }
+.info-missing-star { width: clamp(130px, 16vw, 200px); height: auto; filter: drop-shadow(0 0 40px color-mix(in srgb, var(--light) 60%, transparent)) }
+.info-missing-code { margin-top: 24px; font: 800 clamp(70px, 12vw, 180px)/.8 var(--display); letter-spacing: -.06em; background: var(--light-text); -webkit-background-clip: text; background-clip: text; color: transparent }
+.info-missing h1 { margin-top: 18px; font: 800 clamp(34px, 5vw, 72px)/1 var(--display); letter-spacing: -.045em; text-wrap: balance }
+.info-missing .info-intro { margin-inline: auto }
+.info-missing-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px }
+.info-missing-play { margin-top: 30px; font-size: 15px; line-height: 1.7; color: var(--ink-2) }
+.info-missing-play a { color: var(--light); text-decoration: underline; text-underline-offset: 4px }
+@media (max-width: 760px) {
+  .info-page { padding: calc(var(--shell-header) + 50px) var(--h-gutter) 90px }
+  .info-body section { grid-template-columns: 1fr; padding: 28px 0 }
+  .info-body h2 { grid-row: auto }
+  .info-missing-links { flex-direction: column; align-items: stretch; width: 100%; max-width: 340px }
+}

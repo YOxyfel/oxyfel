@@ -2,18 +2,20 @@
   "name": "oxyfel-digital-hub",
   "private": true,
   "version": "1.0.0",
-  "description": "Oxyfel — original games, practical products, and digital experiences.",
+  "description": "Oxyfel: games for players, studio work for companies and everyday technology care for people.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "postbuild": "vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "build:domain": "tsc -b && vite build --mode domain && vite build --ssr src/entry-server.tsx --outDir dist-ssr --mode domain && node scripts/prerender.mjs --mode domain",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist -t"
   },
   "dependencies": {
     "@fontsource-variable/cormorant-garamond": "^5.2.6",
+    "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/syne": "^5.2.7",
     "@phosphor-icons/react": "^2.1.10",
     "react": "^19.2.7",

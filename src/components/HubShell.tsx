@@ -1,21 +1,68 @@
 import { useEffect, useRef } from 'react'
-import { ArrowRight, ArrowUpRight, GridFour, X } from '@phosphor-icons/react'
-import { elderviceWebsite, portfolioProjects } from '../content'
+import { ArrowRight, ArrowUpRight, CaretDown, List, X } from '@phosphor-icons/react'
+import { divisions, media, portfolioProjects, ROBLOX_URL } from '../content'
+import type { Division } from '../content'
+import { OxyfelStar } from './OxyfelStar'
+import { pageUrl, ShareButton } from './Share'
 
-export type Experience = 'hub' | 'worlds' | 'care' | 'studio'
+export type Experience = 'hub' | 'games' | 'care' | 'studio' | 'privacy' | 'notfound'
 export type SiteLocale = 'en' | 'bg'
-export const route = (page: Experience) => `${import.meta.env.BASE_URL}${page === 'hub' ? '' : `${page}/`}`
+const paths: Record<Experience, string> = { hub: '', games: 'games/', care: 'care/', studio: 'studio/', privacy: 'privacy/', notfound: '' }
+export const route = (page: Experience) => `${import.meta.env.BASE_URL}${paths[page]}`
 export function projectRoute(id: string) {
   if (id === 'eldervice') return `${route('care')}#eldervice`
   if (id === 'personal') return `${route('studio')}#personal`
   if (id === 'oxyfel') return `${route('studio')}#case-websites`
-  return `${route('worlds')}#${id}`
+  return `${route('games')}#${id}`
 }
-const categoriesBg: Record<string,string> = {wuhen:'Екшън RPG',constellore:'Браузърна игра',mosquittoz:'Асиметрична мултиплейър игра',threshold:'Паркур в Roblox',eldervice:'Помощ и лични ръководства','run-bank':'Експедиция в Roblox',personal:'Лично портфолио',oxyfel:'Сайт на студиото'}
-const statusesBg: Record<string,string> = {wuhen:'PC демо в разработка',constellore:'Играйте в браузъра',mosquittoz:'LAN алфа за Windows',threshold:'Локален прототип',eldervice:'Пилотен проект · Варна','run-bank':'Ранен прототип',personal:'Публично портфолио',oxyfel:'В момента сте тук'}
+export const divisionOf = (page: Experience): Division | undefined => page === 'games' || page === 'studio' || page === 'care' ? page : undefined
+export const toneOf: Record<Division, 'tone-gold' | 'tone-ice' | 'tone-jade'> = { games: 'tone-gold', studio: 'tone-ice', care: 'tone-jade' }
+
+const words = {
+  en: {
+    skip: 'Skip to content', home: 'Oxyfel, home', homeLink: 'Oxyfel home', backHome: 'back to the Oxyfel home page', nav: 'Oxyfel and its divisions', games: 'Games', studio: 'Studio', care: 'Care',
+    audience: { games: 'For players', studio: 'For companies', care: 'For people at home' },
+    play: 'Play Chop-a-Chop!', playShort: 'Play', talk: 'Start a project', talkShort: 'Talk', help: 'Ask for help', helpShort: 'Help',
+    all: 'All of Oxyfel', menu: 'Menu', close: 'Close the menu', directory: 'All of Oxyfel', directoryIntro: 'Every division and project, and where each one stands.', newTab: '(opens in a new tab)',
+    statement: ['Find', 'your light.'], line: 'Games for players. Work for companies. Help for people.', made: 'Made by Yane Zhekov', privacy: 'Privacy',
+    footerGames: [['Chop-a-Chop!', 'games/#chop-a-chop'], ['Games in development', 'games/#in-development'], ['Press and creators', 'games/#press']], footerStudio: [['What we build', 'studio/#studio-workbench'], ['Start a project', 'studio/#start-a-project'], ['The person behind it', 'studio/#personal']], footerCare: [['Eldervice', 'care/#eldervice'], ['Ask for help at home', 'care/#care-contact'], ['На български', 'care/?lang=bg']],
+    playRoblox: 'Play on Roblox',
+  },
+  bg: {
+    skip: 'Към съдържанието', home: 'Oxyfel, начало', homeLink: 'Начало на Oxyfel', backHome: 'обратно към началото на Oxyfel', nav: 'Oxyfel и направленията', games: 'Игри', studio: 'Студио', care: 'Грижа',
+    audience: { games: 'За играчите', studio: 'За компании', care: 'За хората у дома' },
+    play: 'Играйте Chop-a-Chop!', playShort: 'Играйте', talk: 'Започнете проект', talkShort: 'Проект', help: 'Попитайте', helpShort: 'Помощ',
+    all: 'Всичко от Oxyfel', menu: 'Меню', close: 'Затваряне на менюто', directory: 'Всичко от Oxyfel', directoryIntro: 'Всички направления и проекти, и докъде е стигнал всеки.', newTab: '(отваря нов раздел)',
+    statement: ['Намерете', 'своята светлина.'], line: 'Игри за играчите. Работа за компании. Помощ за хората.', made: 'От Яне Жеков', privacy: 'Поверителност (EN)',
+    footerGames: [['Chop-a-Chop!', 'games/#chop-a-chop'], ['Игри в разработка', 'games/#in-development'], ['За медии', 'games/#press']], footerStudio: [['Какво създаваме', 'studio/#studio-workbench'], ['Започнете проект', 'studio/#start-a-project'], ['Кой стои зад него', 'studio/#personal']], footerCare: [['Eldervice', 'care/?lang=bg#eldervice'], ['Помощ у дома', 'care/?lang=bg#care-contact'], ['In English', 'care/']],
+    playRoblox: 'Играйте в Roblox',
+  },
+} as const
+
+// Pictures for the division cards in the menu (small files, loaded only when it opens).
+const menuArt: Record<Division, string> = {
+  games: `${import.meta.env.BASE_URL}media/chop-a-chop/night-640.webp`,
+  studio: media('studio-mosquitto-model-640.webp'),
+  care: media('care-world-640.webp'),
+}
+
+const statusBg: Record<string, string> = {
+  'chop-a-chop': 'Вече излезе · Безплатно в Roblox', wuhen: 'PC демо в разработка', constellore: 'Играйте в браузъра', mosquittoz: 'LAN алфа за Windows', threshold: 'Локален прототип',
+  eldervice: 'Пилотен проект · Варна', 'run-bank': 'Ранен прототип', personal: 'Публично портфолио', oxyfel: 'Пример от практиката',
+}
+
+export function Lockup({ division, className = '' }: { division?: Division; className?: string }) {
+  return <span className={`ox-lockup ${division ? toneOf[division] : ''} ${className}`}>
+    <OxyfelStar className="ox-lockup-star" />
+    <span className="ox-lockup-word">OXYFEL</span>
+    {division && <span className="ox-lockup-division">{divisions[division].word.toUpperCase()}</span>}
+  </span>
+}
 
 export function HubHeader({ page, locale = 'en' }: { page: Experience; locale?: SiteLocale }) {
+  const t = words[locale]
   const bg = locale === 'bg'
+  const division = divisionOf(page)
   const directory = useRef<HTMLDetailsElement>(null)
   const summary = useRef<HTMLElement>(null)
   const close = () => { if (directory.current) directory.current.open = false; summary.current?.focus() }
@@ -28,50 +75,86 @@ export function HubHeader({ page, locale = 'en' }: { page: Experience; locale?: 
     window.addEventListener('hashchange', navigation)
     return () => { document.removeEventListener('keydown', escape); document.removeEventListener('pointerdown', outside); window.removeEventListener('hashchange', navigation) }
   }, [])
-  const talk = page === 'care' ? '#care-contact' : `${route('studio')}#start-a-project`
+  const careRoute = `${route('care')}${bg ? '?lang=bg' : ''}`
+  const divisionHref = (id: Division) => id === 'care' ? careRoute : route(id)
+  const action = page === 'care'
+    ? { href: '#care-contact', label: t.help, short: t.helpShort, external: false }
+    : page === 'studio'
+      ? { href: '#start-a-project', label: t.talk, short: t.talkShort, external: false }
+      : { href: ROBLOX_URL, label: t.play, short: t.playShort, external: true }
+  const closeMenu = () => { if (directory.current) directory.current.open = false }
   return <>
-    <a className="h-skip" href="#main">{bg ? 'Към съдържанието' : 'Skip to content'}</a>
+    <a className="h-skip" href="#main">{t.skip}</a>
     <header className="h-header" lang={locale}>
-      <a className="h-brand" href={route('hub')} aria-label={bg ? 'Oxyfel — начало' : 'Oxyfel — back to the hub'}>OXYFEL<span>.</span></a>
-      <span className="h-descriptor">{bg ? 'Създадено от Яне Жеков.' : 'The work of Yane Zhekov.'}<br />{bg ? 'Игри. Помощ. Нови идеи.' : 'Games. Everyday help. New ideas.'}</span>
-      <nav className="h-nav" aria-label={bg ? 'Преживявания' : 'Experiences'}>
-        <a href={route('worlds')} aria-current={page === 'worlds' ? 'page' : undefined}>{bg ? 'Светове' : 'Worlds'}</a>
-        <a href={`${route('care')}${bg ? '?lang=bg' : ''}`} aria-current={page === 'care' ? 'page' : undefined}>{bg ? 'Ежедневие' : 'Everyday'}</a>
-        <a href={route('studio')} aria-current={page === 'studio' ? 'page' : undefined}>{bg ? 'Студио' : 'Studio'}</a>
-        <a className="h-talk" href={talk}>{bg ? 'Контакт' : 'Let’s talk'} <ArrowUpRight size={16} aria-hidden="true" /></a>
+      <a className="h-brand" href={route('hub')} aria-label={division ? `${divisions[division].name}, ${t.backHome}` : t.home}><Lockup division={division} /></a>
+      <nav className="h-nav" aria-label={t.nav}>
+        <a className="h-nav-home tone-gold" href={route('hub')} aria-current={page === 'hub' ? 'page' : undefined}><OxyfelStar className="h-nav-star" /><span className="h-nav-home-word">Oxyfel</span></a>
+        {(['games', 'studio', 'care'] as const).map(id => <a key={id} className={toneOf[id]} href={divisionHref(id)} aria-current={page === id ? 'page' : undefined}><i aria-hidden="true" />{t[id]}</a>)}
       </nav>
-      <details className="h-directory" ref={directory}>
-        <summary ref={summary}><GridFour size={19} aria-hidden="true" /><span>{bg ? 'Всички проекти' : 'All projects'}</span></summary>
-        <div className="h-directory-panel">
-          <noscript><style>{'.h-directory-title button{display:none}'}</style></noscript>
-          <div className="h-directory-title"><p>{bg ? 'Всички посоки' : 'The whole collection'} <span>08</span></p><button type="button" aria-label={bg ? 'Затваряне на проектите' : 'Close project directory'} onClick={close}><X size={20} aria-hidden="true" /></button></div>
-          <p className="h-directory-intro">{bg ? 'Какво можете да разгледате — и докъде е стигнал всеки проект.' : 'Find something to explore. See where each project stands.'}</p>
-          <nav aria-label={bg ? 'Списък с проекти' : 'Project directory'}>
-            {portfolioProjects.map((project, index) => <a key={project.id} href={project.id === 'eldervice' && bg ? `${route('care')}?lang=bg#eldervice` : projectRoute(project.id)} onClick={() => { if (directory.current) directory.current.open = false }}>
-              <span className="h-project-number">{String(index + 1).padStart(2, '0')}</span>
-              <span className="h-project-description"><strong>{project.name}</strong><small>{bg ? categoriesBg[project.id] : project.category}</small><span className="h-project-status">{bg ? statusesBg[project.id] : project.status}</span></span>
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>)}
-          </nav>
-        </div>
-      </details>
+      <div className="h-end">
+        <details className="h-directory" ref={directory}>
+          <summary ref={summary}><span>{t.all}</span><span className="h-menu-label">{t.menu}</span><List size={18} className="h-menu-icon" aria-hidden="true" /><CaretDown size={14} weight="bold" className="h-caret" aria-hidden="true" /></summary>
+          <div className="h-directory-panel">
+            <noscript><style>{'.h-directory-title button{display:none}'}</style></noscript>
+            <div className="h-directory-title"><p>{t.directory}</p><a className="h-directory-home tone-gold" href={route('hub')} onClick={closeMenu} aria-current={page === 'hub' ? 'page' : undefined}><OxyfelStar className="h-directory-home-star" />{t.homeLink}<ArrowRight size={16} aria-hidden="true" /></a><button type="button" aria-label={t.close} onClick={close}><X size={22} aria-hidden="true" /></button></div>
+            <p className="h-directory-intro">{t.directoryIntro}</p>
+            <nav className="h-menu-divisions" aria-label={t.nav}>
+              {(['games', 'studio', 'care'] as const).map(id => <a key={id} className={toneOf[id]} href={divisionHref(id)} onClick={closeMenu} aria-current={page === id ? 'page' : undefined}>
+                <span className="h-menu-art" aria-hidden="true"><img src={menuArt[id]} width="640" height="360" alt="" loading="lazy" decoding="async" /></span>
+                <span className="h-menu-word">{t[id]}</span><small>{t.audience[id]}</small>
+                <span className="h-menu-go" aria-hidden="true"><ArrowRight size={18} /></span>
+              </a>)}
+            </nav>
+            <div className="h-directory-groups">
+              {(['games', 'studio', 'care'] as const).map(id => <nav key={id} className={`h-directory-group ${toneOf[id]}`} aria-label={divisions[id].name}>
+                <a className="h-directory-division" href={divisionHref(id)} onClick={closeMenu}><Lockup division={id} /><ArrowRight size={16} aria-hidden="true" /></a>
+                {portfolioProjects.filter(project => project.division === id).map(project => <a key={project.id} className={project.id === 'chop-a-chop' ? 'h-directory-live' : undefined} href={project.id === 'eldervice' && bg ? `${route('care')}?lang=bg#eldervice` : project.id === 'chop-a-chop' ? `${route('games')}#chop-a-chop` : projectRoute(project.id)} onClick={closeMenu}>
+                  <span className="h-project-description"><strong>{project.name}</strong><span className="h-project-status">{bg ? statusBg[project.id] ?? project.status : project.status}</span></span>
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </a>)}
+                {id === 'games' && <a className="h-directory-cta" href={ROBLOX_URL} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>{t.playRoblox}<ArrowUpRight size={16} aria-hidden="true" /><span className="sr-only"> {t.newTab}</span></a>}
+                {id === 'studio' && <a className="h-directory-cta" href={`${route('studio')}#start-a-project`} onClick={closeMenu}>{t.talk}<ArrowRight size={16} aria-hidden="true" /></a>}
+                {id === 'care' && <a className="h-directory-cta" href={`${careRoute}#care-contact`} onClick={closeMenu}>{t.help}<ArrowRight size={16} aria-hidden="true" /></a>}
+              </nav>)}
+            </div>
+          </div>
+        </details>
+        <a className="h-action" href={action.href} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+          <span className="h-action-long">{action.label}</span><span className="h-action-short" aria-hidden="true">{action.short}</span><ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+          {action.external && <span className="sr-only"> {t.newTab}</span>}
+        </a>
+      </div>
     </header>
   </>
 }
 
 export function HubFooter({ page, locale = 'en' }: { page: Experience; locale?: SiteLocale }) {
-  const bg = locale === 'bg'
+  const t = words[locale]
+  const base = import.meta.env.BASE_URL
+  const columns: { division: Division; links: readonly (readonly [string, string])[] }[] = [
+    { division: 'games', links: t.footerGames }, { division: 'studio', links: t.footerStudio }, { division: 'care', links: t.footerCare },
+  ]
   return <footer id="contact" className="h-footer" lang={locale}>
     <div className="h-footer-top">
-      <p>{bg ? 'Има още за откриване.' : 'There is more to discover.'}<br /><em>{bg ? 'Изберете друга посока.' : 'Follow a different thread.'}</em></p>
-      <nav aria-label={bg ? 'Разгледайте още' : 'Keep exploring'}>
-        <a href={elderviceWebsite.href} target="_blank" rel="noopener noreferrer">{bg ? 'Сайтът на Eldervice' : 'Eldervice website'}{elderviceWebsite.requiresSignIn && <span>{bg ? ' (с достъп)' : ' (sign-in required)'}</span>}<ArrowUpRight size={17} aria-hidden="true" /><span className="sr-only">{bg ? ' (отваря нов раздел)' : ' (opens in a new tab)'}</span></a>
-        {page !== 'hub' && <a href={route('hub')}>{bg ? 'Към началото' : 'Back to the hub'} <ArrowRight size={17} aria-hidden="true" /></a>}
-        {page !== 'worlds' && <a href={route('worlds')}>{bg ? 'Оригинални игри' : 'Explore original games'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
-        {page !== 'care' && <a href={route('care')}>{bg ? 'Помощ в ежедневието' : 'Try an Eldervice visit'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
-        {page !== 'studio' && <a href={`${route('studio')}#case-websites`}>{bg ? 'Как се създава' : 'See how the work is made'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
-      </nav>
+      <a href={route('hub')} aria-label={t.home}><OxyfelStar className="h-footer-star" /></a>
+      <p className="h-footer-statement">{t.statement.map((line, index) => <span key={line}>{index ? ' ' : ''}{line}</span>)}</p>
+      <p className="h-footer-line">{t.line}</p>
+      <div className="h-footer-actions">
+        {page !== 'hub' && <a className="h-footer-home tone-gold" href={route('hub')}><OxyfelStar className="h-footer-home-star" />{t.homeLink}<ArrowRight size={17} aria-hidden="true" /></a>}
+        <ShareButton label={locale === 'bg' ? 'Споделете Oxyfel' : 'Share Oxyfel'} title="Oxyfel" text={t.line} url={pageUrl()} />
+      </div>
     </div>
-    <div className="h-footer-bottom"><span>© {new Date().getFullYear()} Oxyfel</span><a href="https://v0-yanez.vercel.app/en" target="_blank" rel="noopener noreferrer">{bg ? 'От Яне Жеков' : 'Made by Yane Zhekov'} <span className="sr-only">{bg ? '(отваря нов раздел)' : '(opens in a new tab)'}</span></a><a href={`${import.meta.env.BASE_URL}privacy.html`}>{bg ? 'Поверителност (EN)' : 'Privacy'}</a></div>
+    <div className="h-footer-columns">
+      {columns.map(column => <nav key={column.division} aria-label={divisions[column.division].name} className={`h-footer-column ${toneOf[column.division]}`}>
+        <a className="h-footer-division" href={`${route(column.division)}${column.division === 'care' && locale === 'bg' ? '?lang=bg' : ''}`} aria-current={page === column.division ? 'page' : undefined}><Lockup division={column.division} /></a>
+        {column.links.map(([label, href]) => <a key={href} href={base + href}>{label}</a>)}
+        {column.division === 'games' && <a href={ROBLOX_URL} target="_blank" rel="noopener noreferrer">{t.playRoblox} <ArrowUpRight size={15} aria-hidden="true" /><span className="sr-only"> {t.newTab}</span></a>}
+      </nav>)}
+    </div>
+    <div className="h-footer-bottom"><span>© {new Date().getFullYear()} Oxyfel</span><a href="https://v0-yanez.vercel.app/en" target="_blank" rel="noopener noreferrer">{t.made} <span className="sr-only">{t.newTab}</span></a><a href={route('privacy')} aria-current={page === 'privacy' ? 'page' : undefined}>{t.privacy}</a></div>
   </footer>
+}
+
+export function Intro() {
+  return <div className="ox-intro" aria-hidden="true"><span className="ox-intro-flare" /><OxyfelStar className="ox-intro-star" /></div>
 }

@@ -3,49 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#080c0d" />
+    <meta name="theme-color" content="#050506" />
+    <!-- The star intro plays once per visit (not with reduced motion, not without JavaScript). -->
+    <script>try{if(!sessionStorage.getItem('ox-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.dataset.intro='play'}catch(e){}</script>
 
-    <title>Oxyfel — Worlds, Everyday &amp; Studio</title>
+    <!-- Addresses come from site.config.mjs: __SITE_URL__ and __BASE__ are filled in by vite.config.ts.
+         scripts/prerender.mjs sets each page's title, description, canonical link and share card. -->
+    <title>Oxyfel: games, studio work and everyday care</title>
     <meta
       name="description"
-      content="Explore the complete Oxyfel collection: original games, Eldervice, creative tools, and digital experiences by Yane Zhekov."
+      content="Oxyfel makes games for players, builds for companies and helps people with everyday technology. Chop-a-Chop! by Oxyfel Games is out now on Roblox."
     />
     <meta name="author" content="Oxyfel" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://yoxyfel.github.io/oxyfel/" />
+    <link rel="canonical" href="__SITE_URL__" />
 
-    <link rel="icon" type="image/svg+xml" href="/oxyfel/favicon.svg" />
-    <link rel="apple-touch-icon" href="/oxyfel/favicon.svg" />
-    <link rel="manifest" href="/oxyfel/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="__BASE__favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="__BASE__icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="__BASE__icons/apple-touch-icon.png" />
+    <link rel="manifest" href="__BASE__site.webmanifest" />
 
     <!-- Fonts are self-hosted via @fontsource-variable (imported in src/index.css). -->
-
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Oxyfel" />
-    <meta property="og:title" content="Oxyfel — Worlds, Everyday &amp; Studio" />
+    <meta property="og:title" content="Oxyfel: games, studio work and everyday care" />
     <meta
       property="og:description"
-      content="Original games, practical products, and digital experiences. Explore all eight projects and meet the independent studio behind them."
+      content="Oxyfel makes games for players, builds for companies and helps people with everyday technology. Chop-a-Chop! by Oxyfel Games is out now on Roblox."
     />
-    <meta property="og:url" content="https://yoxyfel.github.io/oxyfel/" />
-    <meta property="og:image" content="https://yoxyfel.github.io/oxyfel/og.png" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:url" content="__SITE_URL__" />
+    <meta property="og:image" content="__SITE_URL__og/oxyfel.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Oxyfel — Three entrances: Worlds, Everyday, and Studio. Project artwork and an Eldervice service illustration." />
+    <meta property="og:image:alt" content="The gold Oxyfel star above the names of its three divisions: Oxyfel Games, Oxyfel Studio and Oxyfel Care." />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Oxyfel — Worlds, Everyday &amp; Studio" />
+    <meta name="twitter:title" content="Oxyfel: games, studio work and everyday care" />
     <meta
       name="twitter:description"
-      content="Original games, practical products, and digital experiences. Explore all eight projects and meet the independent studio behind them."
+      content="Oxyfel makes games for players, builds for companies and helps people with everyday technology. Chop-a-Chop! by Oxyfel Games is out now on Roblox."
     />
-    <meta name="twitter:image" content="https://yoxyfel.github.io/oxyfel/og.png" />
-    <meta name="twitter:image:alt" content="Oxyfel — Three entrances: Worlds, Everyday, and Studio. Project artwork and an Eldervice service illustration." />
+    <meta name="twitter:image" content="__SITE_URL__og/oxyfel.jpg" />
+    <meta name="twitter:image:alt" content="The gold Oxyfel star above the names of its three divisions: Oxyfel Games, Oxyfel Studio and Oxyfel Care." />
 
     <!-- Structured data -->
     <script type="application/ld+json">
@@ -54,138 +58,112 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://yoxyfel.github.io/oxyfel/#organization",
+      "@id": "__SITE_URL__#organization",
       "name": "Oxyfel",
-      "url": "https://yoxyfel.github.io/oxyfel/",
-      "slogan": "Perfection is standard.",
-      "description": "An independent creative studio building original games, practical products, and digital experiences.",
-      "logo": "https://yoxyfel.github.io/oxyfel/favicon.svg",
-      "email": "zhekov.yane123@gmail.com",
+      "url": "__SITE_URL__",
+      "logo": "__SITE_URL__icons/oxyfel-512.png",
+      "description": "Oxyfel makes games for players, builds for companies and helps people with everyday technology.",
       "foundingDate": "2024",
-      "sameAs": [
-        "https://github.com/YOxyfel"
-      ],
-      "member": [
-        {
-          "@id": "https://yoxyfel.github.io/oxyfel/#yanez"
-        }
+      "founder": { "@id": "__SITE_URL__#yanez" },
+      "sameAs": ["https://github.com/YOxyfel"],
+      "subOrganization": [
+        { "@id": "__SITE_URL__games/#organization" },
+        { "@id": "__SITE_URL__studio/#organization" },
+        { "@id": "__SITE_URL__care/#organization" }
       ]
     },
     {
+      "@type": "Organization",
+      "@id": "__SITE_URL__games/#organization",
+      "name": "Oxyfel Games",
+      "url": "__SITE_URL__games/",
+      "logo": "__SITE_URL__icons/oxyfel-512.png",
+      "description": "The games division of Oxyfel: original games for players, starting with Chop-a-Chop! on Roblox.",
+      "parentOrganization": { "@id": "__SITE_URL__#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "__SITE_URL__studio/#organization",
+      "name": "Oxyfel Studio",
+      "url": "__SITE_URL__studio/",
+      "description": "The studio division of Oxyfel: websites, game systems and interactive work for companies.",
+      "parentOrganization": { "@id": "__SITE_URL__#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "__SITE_URL__care/#organization",
+      "name": "Oxyfel Care",
+      "url": "__SITE_URL__care/",
+      "description": "The care division of Oxyfel: patient help with everyday technology, starting with the Eldervice pilot in Varna.",
+      "parentOrganization": { "@id": "__SITE_URL__#organization" }
+    },
+    {
       "@type": "Person",
-      "@id": "https://yoxyfel.github.io/oxyfel/#yanez",
+      "@id": "__SITE_URL__#yanez",
       "name": "Yane Zhekov",
       "jobTitle": "Founder",
       "url": "https://v0-yanez.vercel.app/en",
-      "worksFor": {
-        "@id": "https://yoxyfel.github.io/oxyfel/#organization"
-      }
+      "worksFor": { "@id": "__SITE_URL__#organization" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "__SITE_URL__#website",
+      "url": "__SITE_URL__",
+      "name": "Oxyfel",
+      "publisher": { "@id": "__SITE_URL__#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "VideoGame",
+      "@id": "__SITE_URL__games/#chop-a-chop",
+      "name": "Chop-a-Chop!",
+      "description": "A chopping adventure on Roblox: fell whole rows with one chop, find rare woods, haul your logs by spaceship, and survive the night when the forest fights back.",
+      "url": "https://playchopachop.com/",
+      "sameAs": ["https://www.roblox.com/games/135424778069566"],
+      "image": "__SITE_URL__og/games.jpg",
+      "gamePlatform": "Roblox",
+      "applicationCategory": "Game",
+      "datePublished": "2026-11-06",
+      "isAccessibleForFree": true,
+      "author": { "@id": "__SITE_URL__games/#organization" },
+      "publisher": { "@id": "__SITE_URL__games/#organization" }
     },
     {
       "@type": "VideoGame",
       "name": "Wuhen & Xuan: Heaven Defying",
       "url": "https://yoxyfel.github.io/wan-lin-immortal/",
-      "publisher": {
-        "@id": "https://yoxyfel.github.io/oxyfel/#organization"
-      }
+      "publisher": { "@id": "__SITE_URL__games/#organization" }
     },
     {
       "@type": "VideoGame",
       "name": "Constellore",
       "url": "https://yoxyfel.github.io/constellore/",
-      "publisher": {
-        "@id": "https://yoxyfel.github.io/oxyfel/#organization"
-      }
+      "publisher": { "@id": "__SITE_URL__games/#organization" }
     },
     {
       "@type": "VideoGame",
       "name": "Mosquittoz",
-      "publisher": {
-        "@id": "https://yoxyfel.github.io/oxyfel/#organization"
-      },
-      "url": "https://yoxyfel.github.io/mosquittoz/"
-    },
-    {
-      "@type": "VideoGame",
-      "name": "Run & Bank",
-      "publisher": {
-        "@id": "https://yoxyfel.github.io/oxyfel/#organization"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://yoxyfel.github.io/oxyfel/#website",
-      "url": "https://yoxyfel.github.io/oxyfel/",
-      "name": "Oxyfel",
-      "publisher": {
-        "@id": "https://yoxyfel.github.io/oxyfel/#organization"
-      },
-      "inLanguage": "en"
+      "url": "https://yoxyfel.github.io/mosquittoz/",
+      "publisher": { "@id": "__SITE_URL__games/#organization" }
     },
     {
       "@type": "VideoGame",
       "name": "THRESHOLD",
-      "description": "A local Roblox parkour prototype exploring performance, recovery, and earned Momentum."
+      "description": "A local Roblox parkour prototype exploring performance, recovery, and earned Momentum.",
+      "publisher": { "@id": "__SITE_URL__games/#organization" }
     },
     {
-      "@type": "CreativeWork",
+      "@type": "VideoGame",
+      "name": "Run & Bank",
+      "description": "An early Roblox prototype combining temple parkour, carried loot, and banking.",
+      "publisher": { "@id": "__SITE_URL__games/#organization" }
+    },
+    {
+      "@type": "Service",
       "name": "Eldervice",
-      "description": "A Bulgarian-first pilot project for in-home technology help in Varna, personal printed guides, and guide creation tools."
-    },
-    {
-      "@type": "ItemList",
-      "name": "Oxyfel project collection",
-      "numberOfItems": 8,
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Wuhen & Xuan: Heaven Defying",
-          "url": "https://yoxyfel.github.io/oxyfel/worlds/#wuhen"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Constellore",
-          "url": "https://yoxyfel.github.io/oxyfel/worlds/#constellore"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Mosquittoz",
-          "url": "https://yoxyfel.github.io/oxyfel/worlds/#mosquittoz"
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "name": "THRESHOLD",
-          "url": "https://yoxyfel.github.io/oxyfel/worlds/#threshold"
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "name": "Eldervice",
-          "url": "https://yoxyfel.github.io/oxyfel/care/#eldervice"
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
-          "name": "Run & Bank",
-          "url": "https://yoxyfel.github.io/oxyfel/worlds/#run-bank"
-        },
-        {
-          "@type": "ListItem",
-          "position": 7,
-          "name": "Yane Zhekov",
-          "url": "https://yoxyfel.github.io/oxyfel/studio/#personal"
-        },
-        {
-          "@type": "ListItem",
-          "position": 8,
-          "name": "Oxyfel",
-          "url": "https://yoxyfel.github.io/oxyfel/studio/#oxyfel"
-        }
-      ]
+      "description": "A Bulgarian-first pilot for patient, in-home technology help in Varna, with personal printed guides.",
+      "areaServed": "Varna, Bulgaria",
+      "provider": { "@id": "__SITE_URL__care/#organization" }
     }
   ]
 }

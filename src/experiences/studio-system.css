@@ -1,0 +1,115 @@
+/* Oxyfel Studio in the shared system: the ice light. New hero here; the case studies and
+   profile keep their layout from studio.css and take the system's look. */
+.theme-studio .studio-experience { --s-ice: var(--bg); --s-ink: var(--ink); --s-muted: var(--ink-2); --s-blue: var(--light); color: var(--ink); background: var(--bg); font-family: var(--sans) }
+.theme-studio .studio-experience em { font-family: var(--serif); font-style: italic; font-weight: 500; background: var(--light-text); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .05em }
+.theme-studio .studio-experience .s-kicker { font-size: 12px; font-weight: 700; letter-spacing: .26em; color: var(--light) }
+
+/* Hero */
+.st-hero { position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: clamp(30px, 5vw, 80px); min-height: max(760px, 100svh); padding: calc(var(--shell-header) + 50px) var(--pad) 90px }
+.st-hero-copy { display: grid; justify-items: start; gap: 26px }
+.st-title { display: grid; font-size: clamp(44px, 6.3vw, 112px) }
+.st-title .ox-line:last-of-type > span { padding-bottom: .04em }
+.st-lede { max-width: 44ch; animation: st-rise 1s var(--ease) .5s backwards }
+.st-actions { display: flex; flex-wrap: wrap; gap: 12px; animation: st-rise 1s var(--ease) .65s backwards }
+.st-note { font-size: 14px; line-height: 1.6; color: var(--ink-3); max-width: 46ch }
+@keyframes st-rise { from { opacity: 0; transform: translateY(30px); filter: blur(8px) } }
+.st-board { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; perspective: 1400px; animation: st-rise 1.2s var(--ease) .4s backwards }
+.st-artifact { display: grid; grid-template-rows: auto auto; border-radius: 22px; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(10px)}
+.st-artifact--model { grid-column: 1 / -1 }
+.st-artifact img { width: 100%; height: auto; aspect-ratio: 1.6; object-fit: cover; object-position: 50% 40%; background: #0a1118 }
+.st-artifact--model img { aspect-ratio: 2.3; object-position: 50% 58% }
+.st-artifact > span { position: relative; z-index: 4; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 12px; padding: 16px 18px }
+.st-artifact b { font: 800 15px/1.2 var(--display); letter-spacing: -.01em }
+.st-artifact small { grid-row: 2; font-size: 12px; color: var(--ink-3) }
+.st-artifact svg { grid-row: 1 / 3; grid-column: 2; color: var(--light) }
+.st-marquee { position: relative; z-index: 2 }
+
+/* Workbench: the case studies */
+.theme-studio .studio-experience .s-workbench { background: var(--bg); color: var(--ink); padding-top: clamp(90px, 10vw, 150px) }
+.theme-studio .studio-experience .s-workbench-heading h2, .theme-studio .studio-experience .s-profile h2 { font-family: var(--display); font-weight: 800; letter-spacing: -.045em; line-height: .98 }
+.theme-studio .studio-experience .s-workbench-heading > p:last-child { color: var(--ink-2); font-size: 16px }
+.theme-studio .studio-experience .s-lenses { border-bottom: 0; gap: 10px; padding: 6px; border-radius: 999px; background: var(--surface); box-shadow: 0 0 0 1px var(--line) inset }
+.theme-studio .studio-experience .s-lenses a { border-bottom: 0; border-radius: 999px; min-height: 64px; color: var(--ink-3); font-weight: 800; letter-spacing: -.03em; transition: background-color .3s, color .3s }
+.theme-studio .studio-experience .s-lenses a:hover { color: var(--ink); background: color-mix(in srgb, var(--light) 10%, transparent) }
+.theme-studio .studio-experience .s-lenses a[aria-current=true] { color: var(--light-ink); background: var(--light); box-shadow: 0 14px 40px -18px var(--light) }
+.theme-studio .studio-experience .s-lenses a[aria-current=true] .s-lens-number { color: var(--light-ink) }
+.theme-studio .studio-experience .s-case-heading h3 { font-family: var(--display); font-weight: 800; letter-spacing: -.04em }
+.theme-studio .studio-experience .s-case-heading .s-kicker, .theme-studio .studio-experience .s-case-brief dt { color: var(--light) }
+.theme-studio .studio-experience .s-case-status { border-radius: 999px; border-color: color-mix(in srgb, var(--light) 40%, transparent); color: var(--light-hot); font-weight: 700 }
+.theme-studio .studio-experience .s-case-brief { border-color: var(--line) }
+.theme-studio .studio-experience .s-case-brief dd { color: var(--ink-2); font-size: 15px }
+.theme-studio .studio-experience .s-evidence { border: 0; border-radius: 28px; background: var(--surface); box-shadow: 0 0 0 1px var(--line) inset, 0 40px 100px -60px var(--light) }
+.theme-studio .studio-experience .s-evidence-toolbar { color: var(--ink-2) }
+.theme-studio .studio-experience .s-evidence-toolbar button { border-radius: 999px; color: var(--ink-2); font-weight: 700 }
+.theme-studio .studio-experience .s-evidence-toolbar button[aria-pressed=true] { background: var(--light); border-color: var(--light); color: var(--light-ink) }
+.theme-studio .studio-experience .s-comparison-images, .theme-studio .studio-experience .s-engine-proof, .theme-studio .studio-experience .s-engine-proof > div, .theme-studio .studio-experience .s-mobile-proof { border-radius: 18px; overflow: hidden }
+.theme-studio .studio-experience .s-comparison-line { background: var(--light); box-shadow: 0 0 18px var(--light) }
+.theme-studio .studio-experience .s-comparison-line > span { background: var(--light); color: var(--light-ink) }
+.theme-studio .studio-experience .s-compare-label { border-radius: 999px; background: color-mix(in srgb, var(--bg) 80%, transparent); font-weight: 700 }
+.theme-studio .studio-experience .s-comparison-control input { accent-color: var(--light) }
+.theme-studio .studio-experience .s-decision-controls button { border-radius: 16px; border-color: var(--line-2); color: var(--ink-2); font-weight: 700 }
+.theme-studio .studio-experience .s-decision-controls button[aria-pressed=true] { background: var(--light); border-color: var(--light); color: var(--light-ink) }
+.theme-studio .studio-experience .s-decision-controls button[aria-pressed=true] > span { color: var(--light-ink) }
+.theme-studio .studio-experience .s-decision-note { color: var(--ink-2) }
+.theme-studio .studio-experience .s-decision-note > span { color: var(--light) }
+.theme-studio .studio-experience .s-link { color: var(--light); font-weight: 700; border-bottom-color: color-mix(in srgb, var(--light) 50%, transparent) }
+
+/* Profile */
+.theme-studio .studio-experience .s-profile { color: var(--ink); background: radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--light) 12%, transparent), transparent 45%), var(--bg); border-top: 1px solid var(--line) }
+.theme-studio .studio-experience .s-profile h2 > span { color: var(--ink-3) }
+.theme-studio .studio-experience .s-profile-heading svg { color: var(--light) }
+.theme-studio .studio-experience .s-profile-intro { font-weight: 700; letter-spacing: -.03em }
+.theme-studio .studio-experience .s-profile-copy { color: var(--ink-2); font-size: 16px; max-width: 46ch }
+.theme-studio .studio-experience .s-project-door { border-radius: 26px; overflow: hidden; background: var(--surface); box-shadow: 0 0 0 1px var(--line) inset; color: var(--ink); transition: box-shadow .4s, transform .5s var(--ease) }
+.theme-studio .studio-experience .s-project-door:hover { box-shadow: 0 0 0 1px var(--light) inset, 0 30px 80px -40px var(--light); transform: translateY(-4px) }
+.theme-studio .studio-experience .s-project-door h3 { font-family: var(--display); font-weight: 800; letter-spacing: -.04em }
+.theme-studio .studio-experience .s-project-door p { color: var(--ink-2) }
+
+/* What we build */
+.st-service-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px }
+.st-service { display: grid; align-content: start; gap: 14px; padding: clamp(28px, 3vw, 44px); border-radius: 28px; min-height: 420px }
+.st-service-icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; color: var(--light); background: color-mix(in srgb, var(--light) 12%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--light) 30%, transparent) inset, 0 20px 50px -20px var(--light) }
+.st-service h3 { margin-top: 18px; font: 800 clamp(30px, 2.6vw, 48px)/1 var(--display); letter-spacing: -.045em }
+.st-service > p { font-size: 17px; line-height: 1.7; color: var(--ink-2) }
+.st-service ul { list-style: none; padding: 16px 0 0; margin: auto 0 0; display: grid; gap: 10px; border-top: 1px solid var(--line) }
+.st-service li { display: flex; align-items: center; gap: 10px; font-size: 15px }
+.st-service li svg { color: var(--light) }
+
+/* How a project runs */
+.st-process { border-top: 1px solid var(--line) }
+.st-process-row { position: relative; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px }
+.st-process-row::before { content: ""; position: absolute; left: 4%; right: 4%; top: 52px; height: 1px; background: linear-gradient(90deg, transparent, var(--light), transparent); box-shadow: 0 0 14px var(--light); opacity: .7 }
+.st-step { display: grid; align-content: start; gap: 12px; padding: 28px; border-radius: 24px }
+.st-step-top { display: flex; align-items: center; justify-content: space-between; color: var(--light) }
+.st-step-number { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; font: 800 15px/1 var(--display); color: var(--light-ink); background: var(--light); box-shadow: 0 0 0 6px color-mix(in srgb, var(--light) 16%, transparent), 0 10px 30px -10px var(--light) }
+.st-step h3 { margin-top: 10px; font: 800 30px/1 var(--display); letter-spacing: -.04em }
+.st-step p { font-size: 16px; line-height: 1.65; color: var(--ink-2) }
+.st-process-cta { display: flex; justify-content: center; margin-top: 44px }
+.theme-studio .studio-experience .s-workbench { padding-inline: var(--pad) }
+
+@media (min-width: 2000px) {
+  .st-title { font-size: clamp(112px, 5.4vw, 180px) }
+  .st-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) }
+  .st-service { min-height: 520px }
+  .st-service > p, .st-step p { font-size: 19px }
+}
+@media (max-width: 1100px) {
+  .st-service-grid { grid-template-columns: 1fr }
+  .st-service { min-height: 0 }
+  .st-process-row { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .st-process-row::before { display: none }
+}
+@media (max-width: 600px) { .st-process-row { grid-template-columns: 1fr } }
+
+@media (max-width: 1000px) {
+  .st-hero { grid-template-columns: 1fr; min-height: 0; padding-bottom: 70px }
+  .st-board { max-width: 640px }
+  .theme-studio .studio-experience .s-lenses { border-radius: 24px; flex-direction: column }
+  .theme-studio .studio-experience .s-lenses a { width: 100%; border-radius: 18px }
+}
+@media (max-width: 700px) {
+  .st-actions { flex-direction: column; align-items: stretch; width: 100% }
+  .st-board { gap: 10px }
+  .st-artifact > span { padding: 12px 14px }
+  .st-artifact b { font-size: 13px }
+}

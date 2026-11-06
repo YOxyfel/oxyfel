@@ -58,7 +58,7 @@
 .worlds-experience .wd-evidence figcaption{font-size:12px;line-height:1.75;color:#aebfb2;margin-top:12px}
 .worlds-experience .wd-role-choice{display:grid;grid-template-columns:1fr 1fr;margin:0 0 22px;border-top:1px solid #d8bd793a;border-bottom:1px solid #d8bd793a}
 .worlds-experience .wd-role-choice button{padding:20px 24px;text-align:left;color:#edf1e4;background:transparent;border:0;min-height:88px;font-size:19px;font-family:var(--serif);border-bottom:2px solid transparent}
-.worlds-experience .wd-role-choice button span{display:block;font:13px/1.6 'Syne Variable',sans-serif;margin-top:8px;color:#b9c4b5}
+.worlds-experience .wd-role-choice button span{display:block;font:13px/1.6 var(--sans);margin-top:8px;color:#b9c4b5}
 .worlds-experience .wd-role-choice button[aria-pressed='true']{border-bottom-color:var(--w-accent);background:#d2b57810}
 .worlds-experience .wd-test-controls{justify-content:flex-start;margin-top:22px}
 .worlds-experience .wd-test-controls [aria-pressed='true']{border-color:var(--w-accent);background:#c5ba8410;color:var(--w-accent)}
@@ -68,7 +68,7 @@
 .worlds-experience .wd-cargo-lab>div:first-child{max-width:760px}.worlds-experience .wd-cargo-lab .w-overline{color:var(--w-accent);font-size:12px;margin-bottom:15px}
 .worlds-experience .wd-cargo-totals{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:28px;padding:24px 0;border-top:1px solid #d8bd793a;border-bottom:1px solid #d8bd793a;font-size:13px;color:#bec7b8}
 .worlds-experience .wd-cargo-totals strong{display:flex;align-items:baseline;gap:13px;font:400 48px/1 var(--serif);color:#eae9d6;margin-top:9px}
-.worlds-experience .wd-cargo-totals small{font:12px/1.6 'Syne Variable',sans-serif;color:#b9c4b6}
+.worlds-experience .wd-cargo-totals small{font:12px/1.6 var(--sans);color:#b9c4b6}
 .worlds-experience p.wd-qualifier{font-size:12px;line-height:1.8;color:#a9b9ac;margin:23px 0 0;max-width:850px}
 .worlds-experience .wd-archive-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:20px 0 30px}
 .worlds-experience .wd-archive-grid .wd-enlarge{font-size:12px;padding:6px;bottom:7px;right:7px}
